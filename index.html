@@ -8,92 +8,50 @@
 
 <style>
 :root{
-  --bg:#0a1020;
-  --surface:#111a2e;
-  --surface2:#17223a;
-  --line:#293650;
-  --ink:#eaf0fa;
-  --muted:#9ba9c2;
-  --gold:#e2bd70;
-  --goldInk:#211a0b;
-  --red:#ff8577;
-  --redBg:#34171a;
-  --green:#6edcb0;
-  --greenBg:#10302a;
+  --bg:#0a1020;--surface:#111a2e;--surface2:#17223a;--line:#293650;
+  --ink:#eaf0fa;--muted:#9ba9c2;--gold:#e2bd70;--goldInk:#211a0b;
+  --red:#ff8577;--redBg:#34171a;--green:#6edcb0;--greenBg:#10302a;
   --display:'Reem Kufi','IBM Plex Sans Arabic',system-ui,sans-serif;
-  --body:'IBM Plex Sans Arabic',system-ui,sans-serif;
-  color-scheme:dark;
+  --body:'IBM Plex Sans Arabic',system-ui,sans-serif;color-scheme:dark;
 }
 :root[data-theme="light"]{
-  --bg:#f3f5f9;
-  --surface:#fff;
-  --surface2:#eef1f7;
-  --line:#dce1ec;
-  --ink:#101a30;
-  --muted:#5a6985;
-  --gold:#8f6b1e;
-  --goldInk:#fff;
-  --red:#b3261e;
-  --redBg:#fce9e7;
-  --green:#13694a;
-  --greenBg:#ddf1e8;
+  --bg:#f3f5f9;--surface:#fff;--surface2:#eef1f7;--line:#dce1ec;
+  --ink:#101a30;--muted:#5a6985;--gold:#8f6b1e;--goldInk:#fff;
+  --red:#b3261e;--redBg:#fce9e7;--green:#13694a;--greenBg:#ddf1e8;
   color-scheme:light;
 }
 *{box-sizing:border-box}
 body{
-  margin:0;
-  padding:14px 16px 30px;
-  background:var(--bg);
-  color:var(--ink);
+  margin:0;padding:14px 16px 30px;background:var(--bg);color:var(--ink);
   font:15px/1.55 var(--body);
   background-image:radial-gradient(800px 350px at 50% -150px,#d8b56a20,transparent 70%);
 }
 button,input{font:inherit}
 button{color:inherit;cursor:pointer}
-button:focus-visible,input:focus-visible{
-  outline:2px solid var(--gold);
-  outline-offset:2px
-}
-.wrap{
-  max-width:580px;
-  margin:auto;
-  display:flex;
-  flex-direction:column;
-  gap:14px
-}
+button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:580px;margin:auto;display:flex;flex-direction:column;gap:14px}
 .credit,footer{
-  width:max-content;
-  max-width:100%;
-  align-self:center;
-  text-align:center;
-  color:var(--muted);
-  font-size:11px;
-  letter-spacing:.12em;
-  padding:7px 14px;
-  border:1px solid var(--line);
-  border-radius:999px;
-  background:var(--surface);
+  width:max-content;max-width:100%;align-self:center;text-align:center;
+  color:var(--muted);font-size:11px;letter-spacing:.12em;
+  padding:7px 14px;border:1px solid var(--line);
+  border-radius:999px;background:var(--surface)
 }
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{display:flex;align-items:center;gap:12px}
 .mark{
-  width:46px;height:46px;border-radius:14px;
-  border:1px solid var(--gold);background:var(--surface);
-  color:var(--gold);display:grid;place-items:center;font-size:25px
+  width:46px;height:46px;border-radius:14px;border:1px solid var(--gold);
+  background:var(--surface);color:var(--gold);display:grid;
+  place-items:center;font-size:25px
 }
 h1,h2{font-family:var(--display);margin:0}
 h1{font-size:24px;line-height:1.2}
 h2{font-size:18px}
 .sub{color:var(--muted);font-size:13px}
 .pill{
-  border:1px solid var(--line);background:var(--surface);
-  border-radius:999px;padding:5px 12px;color:var(--muted);
-  font-size:13px;white-space:nowrap
+  border:1px solid var(--line);background:var(--surface);border-radius:999px;
+  padding:5px 12px;color:var(--muted);font-size:13px;white-space:nowrap
 }
-.card{
-  background:var(--surface);border:1px solid var(--line);
-  border-radius:16px;padding:15px
-}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:15px}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .tile{display:flex;flex-direction:column;gap:8px}
 .tile.first{border-color:var(--gold)}
@@ -101,39 +59,23 @@ h2{font-size:18px}
 .th{display:flex;align-items:center;gap:8px}
 .rank{
   width:25px;height:25px;border-radius:50%;background:var(--surface2);
-  color:var(--muted);display:grid;place-items:center;
-  font-size:12px;font-weight:700
+  color:var(--muted);display:grid;place-items:center;font-size:12px;font-weight:700
 }
 .first .rank{background:var(--gold);color:var(--goldInk)}
 .nm{font-weight:700;overflow-wrap:anywhere}
-.total{
-  font:700 40px/1 var(--display);
-  font-variant-numeric:tabular-nums
-}
+.total{font:700 40px/1 var(--display);font-variant-numeric:tabular-nums}
 .bar{height:5px;background:var(--surface2);border-radius:9px;overflow:hidden}
 .bar i{height:100%;display:block;background:var(--gold);border-radius:9px}
 .lost .bar i{background:var(--red)}
-.meta{
-  display:flex;justify-content:space-between;align-items:center;
-  gap:6px;font-size:12px;color:var(--muted)
-}
-.banner{
-  background:var(--greenBg);border:1px solid var(--green);
-  border-radius:14px;padding:12px;font-weight:600
-}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.banner{background:var(--greenBg);border:1px solid var(--green);border-radius:14px;padding:12px;font-weight:600}
 .banner.lostBanner{background:var(--redBg);border-color:var(--red)}
-.fields{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:10px;margin-top:12px
-}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
 .fields.three{grid-template-columns:repeat(3,minmax(0,1fr))}
-.field label{
-  display:block;color:var(--muted);font-size:12px;margin-bottom:4px
-}
+.field label{display:block;color:var(--muted);font-size:12px;margin-bottom:4px}
 .field input{
-  width:100%;min-height:44px;padding:8px 10px;
-  border:1px solid var(--line);border-radius:10px;
-  background:var(--surface2);color:var(--ink)
+  width:100%;min-height:44px;padding:8px 10px;border:1px solid var(--line);
+  border-radius:10px;background:var(--surface2);color:var(--ink)
 }
 .field input[type="color"]{padding:4px;cursor:pointer}
 .player{padding:14px 0}
@@ -147,26 +89,21 @@ h2{font-size:18px}
 .playerName{font-weight:700;flex:1;overflow-wrap:anywhere}
 .roundScore{font:700 18px var(--display);color:var(--gold)}
 .two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.labelLine{
-  display:flex;justify-content:space-between;color:var(--muted);
-  font-size:12px;margin-bottom:5px
-}
+.labelLine{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-bottom:5px}
 .stepper{
   display:flex;align-items:center;gap:4px;background:var(--surface2);
   border:1px solid var(--line);border-radius:999px;padding:4px
 }
 .stepper input{
-  min-width:0;width:100%;border:0;background:transparent;
-  color:var(--ink);text-align:center;font:700 20px var(--display);
-  -moz-appearance:textfield
+  min-width:0;width:100%;border:0;background:transparent;color:var(--ink);
+  text-align:center;font:700 20px var(--display);-moz-appearance:textfield
 }
-.stepper input::-webkit-inner-spin-button,
-.stepper input::-webkit-outer-spin-button{
+.stepper input::-webkit-inner-spin-button,.stepper input::-webkit-outer-spin-button{
   -webkit-appearance:none;margin:0
 }
 .step{
-  width:42px;height:42px;border:1px solid var(--line);
-  border-radius:50%;background:var(--surface);font-size:21px;flex:none
+  width:42px;height:42px;border:1px solid var(--line);border-radius:50%;
+  background:var(--surface);font-size:21px;flex:none
 }
 .step[data-action="inc"]{color:#55d6a2;border-color:#55d6a2}
 .step[data-action="dec"]{color:#ff7185;border-color:#ff7185}
@@ -176,69 +113,49 @@ h2{font-size:18px}
   min-height:46px;padding:0 15px;border:1px solid var(--line);
   border-radius:12px;background:var(--surface2);font-weight:700;flex:1
 }
-.btn.primary{
-  background:var(--gold);border-color:var(--gold);color:var(--goldInk)
-}
+.btn.primary{background:var(--gold);border-color:var(--gold);color:var(--goldInk)}
 .btn.danger{color:var(--red)}
 .btn:disabled{opacity:.45;cursor:default}
 .scroll{overflow-x:auto;margin-top:10px}
-table{
-  border-collapse:collapse;width:100%;min-width:340px;
-  font-variant-numeric:tabular-nums
-}
+table{border-collapse:collapse;width:100%;min-width:340px;font-variant-numeric:tabular-nums}
 th,td{padding:9px 5px;text-align:center;border-bottom:1px solid var(--line)}
 thead th{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
 tbody th{font-weight:500;color:var(--muted)}
 td b{display:block;font:700 17px var(--display)}
 td small{color:var(--muted);font-size:11px;white-space:nowrap}
-tfoot th,tfoot td{
-  border-top:1px solid var(--gold);border-bottom:0;
-  color:var(--gold);font-weight:700
-}
+tfoot th,tfoot td{border-top:1px solid var(--gold);border-bottom:0;color:var(--gold);font-weight:700}
 .empty{color:var(--muted);font-size:13px}
 footer{margin-top:2px}
 
-/* شاشة الاحتفال */
+/* احتفال نهاية اللعبة */
 .celebration{
-  position:fixed;
-  inset:0;
-  z-index:99;
-  display:grid;
-  place-items:center;
-  padding:20px;
-  background:#050812cc;
-  animation:fadeIn .25s ease-out
+  position:fixed;inset:0;z-index:99;display:grid;place-items:center;
+  padding:20px;background:#050812cc;animation:fadeIn .25s ease-out
 }
 .celebrationBox{
-  width:min(420px,100%);
-  padding:28px 20px;
-  text-align:center;
-  border:1px solid var(--gold);
-  border-radius:24px;
-  background:var(--surface);
-  box-shadow:0 20px 80px #0009;
+  width:min(420px,100%);max-height:90vh;overflow:auto;
+  padding:26px 20px;text-align:center;border:1px solid var(--gold);
+  border-radius:24px;background:var(--surface);box-shadow:0 20px 80px #0009;
   animation:popIn .45s cubic-bezier(.2,.8,.2,1)
 }
 .celebrationBox .trophy{font-size:58px}
 .celebrationBox h2{color:var(--gold);font-size:28px;margin:8px 0}
-.celebrationBox p{color:var(--muted);margin:0 0 18px}
+.celebrationBox p{color:var(--muted);margin:0 0 14px}
+.winnerList{list-style:none;padding:0;margin:12px 0 20px;text-align:right}
+.winnerList li{
+  padding:10px;margin:7px 0;border:1px solid var(--line);
+  border-radius:12px;background:var(--surface2)
+}
+.winnerList b{color:var(--gold)}
 .confetti{
-  position:fixed;
-  z-index:100;
-  top:-20px;
-  width:10px;
-  height:16px;
-  pointer-events:none;
-  animation:fall 3.2s linear forwards
+  position:fixed;z-index:100;top:-20px;width:10px;height:16px;
+  pointer-events:none;animation:fall 3.2s linear forwards
 }
 @keyframes fall{
   to{transform:translate3d(var(--drift),110vh,0) rotate(900deg);opacity:.85}
 }
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes popIn{
-  from{transform:scale(.75);opacity:0}
-  to{transform:scale(1);opacity:1}
-}
+@keyframes popIn{from{transform:scale(.75);opacity:0}to{transform:scale(1);opacity:1}}
 @media(max-width:380px){
   body{padding-inline:10px}
   .card{padding:12px}
@@ -266,7 +183,6 @@ footer{margin-top:2px}
   <details class="card" id="settings">
     <summary>⚙️ الأسامي والإعدادات</summary>
     <div class="fields" id="names"></div>
-
     <div class="fields three">
       <div class="field">
         <label for="target">الفورة لحد</label>
@@ -281,7 +197,6 @@ footer{margin-top:2px}
         <input id="cardValue" type="number" min="0" inputmode="numeric">
       </div>
     </div>
-
     <div class="fields">
       <div class="field">
         <label for="themeColor">لون التصميم</label>
@@ -333,11 +248,7 @@ footer{margin-top:2px}
   const ids=[0,1,2,3];
 
   const esc=text=>String(text).replace(/[&<>"']/g,char=>({
-    '&':'&amp;',
-    '<':'&lt;',
-    '>':'&gt;',
-    '"':'&quot;',
-    "'":'&#39;'
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
   }[char]));
 
   const number=value=>Math.max(0,parseInt(value,10)||0);
@@ -363,7 +274,6 @@ footer{margin-top:2px}
       oscillator.type='triangle';
       oscillator.frequency.setValueAtTime(880,context.currentTime);
       oscillator.frequency.setValueAtTime(1175,context.currentTime+0.09);
-
       gain.gain.setValueAtTime(0.45,context.currentTime);
       gain.gain.setValueAtTime(0.45,context.currentTime+0.16);
       gain.gain.exponentialRampToValueAtTime(0.001,context.currentTime+0.35);
@@ -377,17 +287,14 @@ footer{margin-top:2px}
 
     if('speechSynthesis' in window){
       window.speechSynthesis.cancel();
-
       const message=action==='inc'
         ? `باص على ${playerName}`
         : `تعديل الباص للاعب ${playerName}`;
-
       const speech=new SpeechSynthesisUtterance(message);
       speech.lang='ar-EG';
       speech.volume=1;
       speech.rate=1;
       speech.pitch=1.1;
-
       setTimeout(()=>window.speechSynthesis.speak(speech),180);
     }
 
@@ -420,17 +327,26 @@ footer{margin-top:2px}
     }catch(e){}
   }
 
-  function celebrateWinner(winnerNames){
+  function celebrateWinner(ranking){
     playWinSound();
+
+    const titles=[
+      'كينج',
+      'صب كينج',
+      'يا عيني على الكوز',
+      'صب كوز كبير'
+    ];
+
+    const announcement=ranking.map((player,index)=>
+      `${['الأول','التاني','التالت','الرابع'][index]} ${player.name} ${titles[index]}`
+    ).join('. ');
 
     if('speechSynthesis' in window){
       window.speechSynthesis.cancel();
-      const speech=new SpeechSynthesisUtterance(
-        `مبروك! الفائز ${winnerNames.join(' و ')}`
-      );
+      const speech=new SpeechSynthesisUtterance(`ترتيب اللعبة. ${announcement}`);
       speech.lang='ar-EG';
-      speech.rate=.9;
-      speech.pitch=1.15;
+      speech.rate=.88;
+      speech.pitch=1.08;
       window.speechSynthesis.speak(speech);
     }
 
@@ -446,13 +362,19 @@ footer{margin-top:2px}
       setTimeout(()=>piece.remove(),4200);
     }
 
+    const list=ranking.map((player,index)=>`
+      <li><b>${['الأول','التاني','التالت','الرابع'][index]} — ${esc(titles[index])}</b><br>
+      ${esc(player.name)} · ${player.score} نقطة</li>
+    `).join('');
+
     const overlay=document.createElement('div');
     overlay.className='celebration';
     overlay.innerHTML=`
       <div class="celebrationBox" role="dialog" aria-modal="true">
         <div class="trophy">🏆</div>
-        <h2>مبروك الفوز!</h2>
-        <p>${winnerNames.map(esc).join(' و ')} كسب${winnerNames.length>1?'وا':'ت'} اللعبة</p>
+        <h2>ترتيب اللعبة!</h2>
+        <p>مبروك يا أبطال 🎉</p>
+        <ol class="winnerList">${list}</ol>
         <button class="btn primary" type="button">احتفلنا 🎉</button>
       </div>`;
 
@@ -677,11 +599,11 @@ footer{margin-top:2px}
       const hasLoser=newTotals.some(score=>score>=S.target);
 
       if(!hadLoser&&hasLoser){
-        const lowest=Math.min(...newTotals);
-        const winnerNames=ids
-          .filter(i=>newTotals[i]===lowest)
-          .map(name);
-        setTimeout(()=>celebrateWinner(winnerNames),250);
+        const ranking=ids
+          .map(i=>({name:name(i),score:newTotals[i],id:i}))
+          .sort((a,b)=>a.score-b.score||a.id-b.id);
+
+        setTimeout(()=>celebrateWinner(ranking),250);
       }
 
       S.cur={p:[0,0,0,0],c:[0,0,0,0]};
