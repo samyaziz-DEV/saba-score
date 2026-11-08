@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>سبع ورقات</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;700&display=swap">
+
+<style>
+:root{
+  --bg:#0a1020;
+  --surface:#111a2e;
+  --surface2:#17223a;
+  --line:#293650;
+  --ink:#eaf0fa;
+  --muted:#9ba9c2;
+  --gold:#e2bd70;
+  --goldInk:#211a0b;
+  --red:#ff8577;
+  --redBg:#34171a;
+  --green:#6edcb0;
+  --greenBg:#10302a;
+  --display:'Reem Kufi','IBM Plex Sans Arabic',system-ui,sans-serif;
+  --body:'IBM Plex Sans Arabic',system-ui,sans-serif;
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --bg:#f3f5f9;
+  --surface:#fff;
+  --surface2:#eef1f7;
+  --line:#dce1ec;
+  --ink:#101a30;
+  --muted:#5a6985;
+  --gold:#8f6b1e;
+  --goldInk:#fff;
+  --red:#b3261e;
+  --redBg:#fce9e7;
+  --green:#13694a;
+  --greenBg:#ddf1e8;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  padding:14px 16px 30px;
+  background:var(--bg);
+  color:var(--ink);
+  font:15px/1.55 var(--body);
+  background-image:radial-gradient(800px 350px at 50% -150px,#d8b56a20,transparent 70%);
+}
+button,input{font:inherit}
+button{color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{
+  outline:2px solid var(--gold);
+  outline-offset:2px
+}
+.wrap{
+  max-width:580px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  gap:14px
+}
+.credit,footer{
+  width:max-content;
+  max-width:100%;
+  align-self:center;
+  text-align:center;
+  color:var(--muted);
+  font-size:11px;
+  letter-spacing:.12em;
+  padding:7px 14px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--surface);
+}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:12px}
+.mark{
+  width:46px;height:46px;border-radius:14px;
+  border:1px solid var(--gold);background:var(--surface);
+  color:var(--gold);display:grid;place-items:center;font-size:25px
+}
+h1,h2{font-family:var(--display);margin:0}
+h1{font-size:24px;line-height:1.2}
+h2{font-size:18px}
+.sub{color:var(--muted);font-size:13px}
+.pill{
+  border:1px solid var(--line);background:var(--surface);
+  border-radius:999px;padding:5px 12px;color:var(--muted);
+  font-size:13px;white-space:nowrap
+}
+.card{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:16px;padding:15px
+}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tile{display:flex;flex-direction:column;gap:8px}
+.tile.first{border-color:var(--gold)}
+.tile.lost{border-color:var(--red);background:var(--redBg)}
+.th{display:flex;align-items:center;gap:8px}
+.rank{
+  width:25px;height:25px;border-radius:50%;background:var(--surface2);
+  color:var(--muted);display:grid;place-items:center;
+  font-size:12px;font-weight:700
+}
+.first .rank{background:var(--gold);color:var(--goldInk)}
+.nm{font-weight:700;overflow-wrap:anywhere}
+.total{
+  font:700 40px/1 var(--display);
+  font-variant-numeric:tabular-nums
+}
+.bar{height:5px;background:var(--surface2);border-radius:9px;overflow:hidden}
+.bar i{height:100%;display:block;background:var(--gold);border-radius:9px}
+.lost .bar i{background:var(--red)}
+.meta{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:6px;font-size:12px;color:var(--muted)
+}
+.banner{
+  background:var(--greenBg);border:1px solid var(--green);
+  border-radius:14px;padding:12px;font-weight:600
+}
+.banner.lostBanner{background:var(--redBg);border-color:var(--red)}
+.fields{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;margin-top:12px
+}
+.fields.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.field label{
+  display:block;color:var(--muted);font-size:12px;margin-bottom:4px
+}
+.field input{
+  width:100%;min-height:44px;padding:8px 10px;
+  border:1px solid var(--line);border-radius:10px;
+  background:var(--surface2);color:var(--ink)
+}
+.field input[type="color"]{padding:4px;cursor:pointer}
+.player{padding:14px 0}
+.player+.player{border-top:1px solid var(--line)}
+.playerHead{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.avatar{
+  width:35px;height:35px;border-radius:50%;background:var(--surface2);
+  border:1px solid var(--line);display:grid;place-items:center;
+  color:var(--gold);font-weight:700
+}
+.playerName{font-weight:700;flex:1;overflow-wrap:anywhere}
+.roundScore{font:700 18px var(--display);color:var(--gold)}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.labelLine{
+  display:flex;justify-content:space-between;color:var(--muted);
+  font-size:12px;margin-bottom:5px
+}
+.stepper{
+  display:flex;align-items:center;gap:4px;background:var(--surface2);
+  border:1px solid var(--line);border-radius:999px;padding:4px
+}
+.stepper input{
+  min-width:0;width:100%;border:0;background:transparent;
+  color:var(--ink);text-align:center;font:700 20px var(--display);
+  -moz-appearance:textfield
+}
+.stepper input::-webkit-inner-spin-button,
+.stepper input::-webkit-outer-spin-button{
+  -webkit-appearance:none;margin:0
+}
+.step{
+  width:42px;height:42px;border:1px solid var(--line);
+  border-radius:50%;background:var(--surface);font-size:21px;flex:none
+}
+.step[data-action="inc"]{color:#55d6a2;border-color:#55d6a2}
+.step[data-action="dec"]{color:#ff7185;border-color:#ff7185}
+.step:active{transform:scale(.94);background:var(--line)}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+.btn{
+  min-height:46px;padding:0 15px;border:1px solid var(--line);
+  border-radius:12px;background:var(--surface2);font-weight:700;flex:1
+}
+.btn.primary{
+  background:var(--gold);border-color:var(--gold);color:var(--goldInk)
+}
+.btn.danger{color:var(--red)}
+.btn:disabled{opacity:.45;cursor:default}
+.scroll{overflow-x:auto;margin-top:10px}
+table{
+  border-collapse:collapse;width:100%;min-width:340px;
+  font-variant-numeric:tabular-nums
+}
+th,td{padding:9px 5px;text-align:center;border-bottom:1px solid var(--line)}
+thead th{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+tbody th{font-weight:500;color:var(--muted)}
+td b{display:block;font:700 17px var(--display)}
+td small{color:var(--muted);font-size:11px;white-space:nowrap}
+tfoot th,tfoot td{
+  border-top:1px solid var(--gold);border-bottom:0;
+  color:var(--gold);font-weight:700
+}
+.empty{color:var(--muted);font-size:13px}
+footer{margin-top:2px}
+
+/* شاشة الاحتفال */
+.celebration{
+  position:fixed;
+  inset:0;
+  z-index:99;
+  display:grid;
+  place-items:center;
+  padding:20px;
+  background:#050812cc;
+  animation:fadeIn .25s ease-out
+}
+.celebrationBox{
+  width:min(420px,100%);
+  padding:28px 20px;
+  text-align:center;
+  border:1px solid var(--gold);
+  border-radius:24px;
+  background:var(--surface);
+  box-shadow:0 20px 80px #0009;
+  animation:popIn .45s cubic-bezier(.2,.8,.2,1)
+}
+.celebrationBox .trophy{font-size:58px}
+.celebrationBox h2{color:var(--gold);font-size:28px;margin:8px 0}
+.celebrationBox p{color:var(--muted);margin:0 0 18px}
+.confetti{
+  position:fixed;
+  z-index:100;
+  top:-20px;
+  width:10px;
+  height:16px;
+  pointer-events:none;
+  animation:fall 3.2s linear forwards
+}
+@keyframes fall{
+  to{transform:translate3d(var(--drift),110vh,0) rotate(900deg);opacity:.85}
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes popIn{
+  from{transform:scale(.75);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+@media(max-width:380px){
+  body{padding-inline:10px}
+  .card{padding:12px}
+  .fields.three{grid-template-columns:1fr}
+  .total{font-size:34px}
+}
+</style>
+</head>
+
+<body>
+<main class="wrap">
+  <div class="credit" dir="ltr">✦ Powered by Samy Aziz ✦</div>
+
+  <header class="top">
+    <div class="brand">
+      <div class="mark">♠</div>
+      <div>
+        <h1>سبع ورقات</h1>
+        <div class="sub" id="subtitle"></div>
+      </div>
+    </div>
+    <span class="pill" id="roundPill"></span>
+  </header>
+
+  <details class="card" id="settings">
+    <summary>⚙️ الأسامي والإعدادات</summary>
+    <div class="fields" id="names"></div>
+
+    <div class="fields three">
+      <div class="field">
+        <label for="target">الفورة لحد</label>
+        <input id="target" type="number" min="1" inputmode="numeric">
+      </div>
+      <div class="field">
+        <label for="passValue">نقط الباص</label>
+        <input id="passValue" type="number" min="0" inputmode="numeric">
+      </div>
+      <div class="field">
+        <label for="cardValue">نقط الورقة</label>
+        <input id="cardValue" type="number" min="0" inputmode="numeric">
+      </div>
+    </div>
+
+    <div class="fields">
+      <div class="field">
+        <label for="themeColor">لون التصميم</label>
+        <input id="themeColor" type="color" value="#e2bd70">
+      </div>
+    </div>
+  </details>
+
+  <div id="banner" class="banner" hidden></div>
+  <section class="grid" id="standings" aria-label="مجموع اللاعبين"></section>
+  <section class="card" id="round"></section>
+
+  <section class="card">
+    <h2>📋 سجل الجيمات</h2>
+    <div class="scroll" id="history"></div>
+    <div class="actions">
+      <button class="btn danger" id="undo">تراجع عن آخر جيم</button>
+      <button class="btn danger" id="reset">فورة جديدة</button>
+    </div>
+  </section>
+
+  <footer dir="ltr">✦ Powered by Samy Aziz ✦</footer>
+</main>
+
+<script>
+(function(){
+  const KEY='saba-awraq-pro-v2';
+
+  const fresh=()=>({
+    names:['اللاعب 1','اللاعب 2','اللاعب 3','اللاعب 4'],
+    target:551,
+    passValue:10,
+    cardValue:1,
+    themeColor:'#e2bd70',
+    rounds:[],
+    cur:{p:[0,0,0,0],c:[0,0,0,0]}
+  });
+
+  let S=fresh();
+
+  try{
+    const saved=JSON.parse(localStorage.getItem(KEY));
+    if(saved&&Array.isArray(saved.names)&&saved.names.length===4){
+      S={...fresh(),...saved};
+    }
+  }catch(e){}
+
+  const $=selector=>document.querySelector(selector);
+  const ids=[0,1,2,3];
+
+  const esc=text=>String(text).replace(/[&<>"']/g,char=>({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[char]));
+
+  const number=value=>Math.max(0,parseInt(value,10)||0);
+  const name=i=>(S.names[i]||'').trim()||`لاعب ${i+1}`;
+  const points=(passes,cards)=>passes*S.passValue+cards*S.cardValue;
+
+  function save(){
+    try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}
+  }
+
+  function totals(){
+    return ids.map(i=>S.rounds.reduce(
+      (sum,round)=>sum+points(round.p[i],round.c[i]),0
+    ));
+  }
+
+  function soundPass(playerName,action){
+    try{
+      const context=new (window.AudioContext||window.webkitAudioContext)();
+      const oscillator=context.createOscillator();
+      const gain=context.createGain();
+
+      oscillator.type='triangle';
+      oscillator.frequency.setValueAtTime(880,context.currentTime);
+      oscillator.frequency.setValueAtTime(1175,context.currentTime+0.09);
+
+      gain.gain.setValueAtTime(0.45,context.currentTime);
+      gain.gain.setValueAtTime(0.45,context.currentTime+0.16);
+      gain.gain.exponentialRampToValueAtTime(0.001,context.currentTime+0.35);
+
+      oscillator.connect(gain);
+      gain.connect(context.destination);
+      oscillator.start();
+      oscillator.stop(context.currentTime+0.35);
+      setTimeout(()=>context.close(),500);
+    }catch(e){}
+
+    if('speechSynthesis' in window){
+      window.speechSynthesis.cancel();
+
+      const message=action==='inc'
+        ? `باص على ${playerName}`
+        : `تعديل الباص للاعب ${playerName}`;
+
+      const speech=new SpeechSynthesisUtterance(message);
+      speech.lang='ar-EG';
+      speech.volume=1;
+      speech.rate=1;
+      speech.pitch=1.1;
+
+      setTimeout(()=>window.speechSynthesis.speak(speech),180);
+    }
+
+    if(navigator.vibrate)navigator.vibrate(45);
+  }
+
+  function playWinSound(){
+    try{
+      const context=new (window.AudioContext||window.webkitAudioContext)();
+      const notes=[523,659,784,1047];
+
+      notes.forEach((frequency,index)=>{
+        const oscillator=context.createOscillator();
+        const gain=context.createGain();
+        const start=context.currentTime+index*.16;
+
+        oscillator.type='triangle';
+        oscillator.frequency.setValueAtTime(frequency,start);
+        gain.gain.setValueAtTime(.001,start);
+        gain.gain.exponentialRampToValueAtTime(.25,start+.03);
+        gain.gain.exponentialRampToValueAtTime(.001,start+.42);
+
+        oscillator.connect(gain);
+        gain.connect(context.destination);
+        oscillator.start(start);
+        oscillator.stop(start+.45);
+      });
+
+      setTimeout(()=>context.close(),1200);
+    }catch(e){}
+  }
+
+  function celebrateWinner(winnerNames){
+    playWinSound();
+
+    if('speechSynthesis' in window){
+      window.speechSynthesis.cancel();
+      const speech=new SpeechSynthesisUtterance(
+        `مبروك! الفائز ${winnerNames.join(' و ')}`
+      );
+      speech.lang='ar-EG';
+      speech.rate=.9;
+      speech.pitch=1.15;
+      window.speechSynthesis.speak(speech);
+    }
+
+    for(let i=0;i<90;i++){
+      const piece=document.createElement('i');
+      piece.className='confetti';
+      piece.style.left=Math.random()*100+'vw';
+      piece.style.backgroundColor=
+        ['#e2bd70','#55d6a2','#ff7185','#74b9ff','#c084fc'][i%5];
+      piece.style.setProperty('--drift',(Math.random()*240-120)+'px');
+      piece.style.animationDelay=(Math.random()*.8)+'s';
+      document.body.appendChild(piece);
+      setTimeout(()=>piece.remove(),4200);
+    }
+
+    const overlay=document.createElement('div');
+    overlay.className='celebration';
+    overlay.innerHTML=`
+      <div class="celebrationBox" role="dialog" aria-modal="true">
+        <div class="trophy">🏆</div>
+        <h2>مبروك الفوز!</h2>
+        <p>${winnerNames.map(esc).join(' و ')} كسب${winnerNames.length>1?'وا':'ت'} اللعبة</p>
+        <button class="btn primary" type="button">احتفلنا 🎉</button>
+      </div>`;
+
+    overlay.addEventListener('click',()=>overlay.remove());
+    document.body.appendChild(overlay);
+  }
+
+  function renderSettings(){
+    $('#names').innerHTML=ids.map(i=>`
+      <div class="field">
+        <label for="name${i}">اسم اللاعب ${i+1}</label>
+        <input id="name${i}" data-name="${i}" maxlength="20" value="${esc(S.names[i])}">
+      </div>
+    `).join('');
+
+    $('#target').value=S.target;
+    $('#passValue').value=S.passValue;
+    $('#cardValue').value=S.cardValue;
+    $('#themeColor').value=S.themeColor||'#e2bd70';
+    document.documentElement.style.setProperty('--gold',S.themeColor||'#e2bd70');
+  }
+
+  function renderHeader(){
+    $('#subtitle').textContent=
+      `الفورة ${S.target} · الباص ${S.passValue} · الورقة ${S.cardValue}`;
+    $('#roundPill').textContent=`الجيم ${S.rounds.length+1}`;
+  }
+
+  function renderStandings(){
+    const scores=totals();
+    const lowest=Math.min(...scores);
+    const banner=$('#banner');
+    const lost=ids.filter(i=>scores[i]>=S.target);
+
+    if(lost.length){
+      const winners=ids.filter(i=>scores[i]===lowest);
+      banner.className='banner lostBanner';
+      banner.textContent=
+        `الفورة خلصت! ${lost.map(name).join(' و ')} وصلوا للحد. الأقل نقاط: ${winners.map(name).join(' و ')} (${lowest}).`;
+      banner.hidden=false;
+    }else{
+      banner.hidden=true;
+    }
+
+    $('#standings').innerHTML=ids.map(i=>{
+      const score=scores[i];
+      const isLost=score>=S.target;
+      const percent=Math.min(100,Math.round(score/S.target*100));
+      const rank=1+scores.filter(value=>value<score).length;
+      const tag=isLost?'خسران':
+        (score===lowest&&S.rounds.length?'الأقل نقاط':'');
+
+      return `
+        <article class="card tile ${isLost?'lost':''} ${rank===1&&S.rounds.length&&!isLost?'first':''}">
+          <div class="th">
+            <span class="rank">${S.rounds.length?rank:'–'}</span>
+            <span class="nm">${esc(name(i))}</span>
+          </div>
+          <div class="total">${score}</div>
+          <div class="bar"><i style="width:${percent}%"></i></div>
+          <div class="meta">
+            <span>${isLost?'عدّى الحد':`باقي ${S.target-score}`}</span>
+            <span>${tag}</span>
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
+
+  function counterField(kind,i,label){
+    return `
+      <div>
+        <div class="labelLine">
+          <span>${label}</span>
+          <span id="hint-${kind}${i}"></span>
+        </div>
+        <div class="stepper" dir="ltr">
+          <button class="step" type="button" data-action="dec" data-kind="${kind}" data-i="${i}" aria-label="نقص">−</button>
+          <input id="input-${kind}${i}" data-kind="${kind}" data-i="${i}" type="number" min="0" inputmode="numeric" value="${S.cur[kind][i]}">
+          <button class="step" type="button" data-action="inc" data-kind="${kind}" data-i="${i}" aria-label="${kind==='p'?'زود باص':'زود ورقة'}">+</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderRound(){
+    const roundNumber=S.rounds.length+1;
+
+    let html=`
+      <div>
+        <h2>الجيم رقم ${roundNumber}</h2>
+        <span class="sub">كل ضغطة + أو − في خانة الباص تطلع صوت وتنطق اسم اللاعب.</span>
+      </div>
+    `;
+
+    ids.forEach(i=>{
+      html+=`
+        <div class="player">
+          <div class="playerHead">
+            <span class="avatar">${esc([...name(i)][0]||'')}</span>
+            <span class="playerName">${esc(name(i))}</span>
+            <span class="roundScore" id="score${i}"></span>
+          </div>
+          <div class="two">
+            ${counterField('p',i,'باصات')}
+            ${counterField('c',i,'الورق المتبقي')}
+          </div>
+        </div>
+      `;
+    });
+
+    html+=`
+      <div class="actions">
+        <button class="btn primary" id="record">✅ سجّل الجيم</button>
+        <button class="btn" id="clear">صفّر الجيم الحالي</button>
+      </div>
+    `;
+
+    $('#round').innerHTML=html;
+    updateRound();
+  }
+
+  function updateRound(){
+    ids.forEach(i=>{
+      $('#score'+i).textContent='+'+points(S.cur.p[i],S.cur.c[i]);
+      $('#hint-p'+i).textContent=`${S.cur.p[i]*S.passValue} نقطة`;
+      $('#hint-c'+i).textContent=`${S.cur.c[i]*S.cardValue} نقطة`;
+    });
+  }
+
+  function renderHistory(){
+    const element=$('#history');
+    $('#undo').disabled=!S.rounds.length;
+    $('#reset').disabled=!S.rounds.length;
+
+    if(!S.rounds.length){
+      element.innerHTML='<p class="empty">لسه مفيش جيمات مسجلة.</p>';
+      return;
+    }
+
+    const scores=totals();
+
+    element.innerHTML=`
+      <table>
+        <thead>
+          <tr><th>جيم</th>${ids.map(i=>`<th>${esc(name(i))}</th>`).join('')}</tr>
+        </thead>
+        <tbody>
+          ${S.rounds.map((round,index)=>`
+            <tr>
+              <th>${index+1}</th>
+              ${ids.map(i=>`
+                <td>
+                  <b>${points(round.p[i],round.c[i])}</b>
+                  <small>${round.p[i]} باص + ${round.c[i]} ورق</small>
+                </td>
+              `).join('')}
+            </tr>
+          `).join('')}
+        </tbody>
+        <tfoot>
+          <tr><th>المجموع</th>${ids.map(i=>`<td>${scores[i]}</td>`).join('')}</tr>
+        </tfoot>
+      </table>
+    `;
+  }
+
+  function render(){
+    renderHeader();
+    renderStandings();
+    renderRound();
+    renderHistory();
+    save();
+  }
+
+  function confirmButton(button,callback){
+    if(button.dataset.confirm){
+      clearTimeout(button.timer);
+      button.textContent=button.dataset.label;
+      delete button.dataset.confirm;
+      callback();
+      return;
+    }
+
+    button.dataset.label=button.textContent;
+    button.dataset.confirm='1';
+    button.textContent='اضغط مرة ثانية للتأكيد';
+
+    button.timer=setTimeout(()=>{
+      button.textContent=button.dataset.label;
+      delete button.dataset.confirm;
+    },2500);
+  }
+
+  document.addEventListener('click',event=>{
+    const button=event.target.closest('button');
+    if(!button)return;
+
+    if(button.dataset.action){
+      const kind=button.dataset.kind;
+      const index=Number(button.dataset.i);
+      const action=button.dataset.action;
+      const change=action==='inc'?1:-1;
+
+      S.cur[kind][index]=Math.max(0,S.cur[kind][index]+change);
+      $(`#input-${kind}${index}`).value=S.cur[kind][index];
+
+      if(kind==='p')soundPass(name(index),action);
+
+      updateRound();
+      save();
+      return;
+    }
+
+    if(button.id==='record'){
+      const oldTotals=totals();
+      const hadLoser=oldTotals.some(score=>score>=S.target);
+
+      S.rounds.push({p:S.cur.p.slice(),c:S.cur.c.slice()});
+
+      const newTotals=totals();
+      const hasLoser=newTotals.some(score=>score>=S.target);
+
+      if(!hadLoser&&hasLoser){
+        const lowest=Math.min(...newTotals);
+        const winnerNames=ids
+          .filter(i=>newTotals[i]===lowest)
+          .map(name);
+        setTimeout(()=>celebrateWinner(winnerNames),250);
+      }
+
+      S.cur={p:[0,0,0,0],c:[0,0,0,0]};
+      render();
+      window.scrollTo({top:0,behavior:'smooth'});
+      return;
+    }
+
+    if(button.id==='clear'){
+      S.cur={p:[0,0,0,0],c:[0,0,0,0]};
+      renderRound();
+      save();
+      return;
+    }
+
+    if(button.id==='undo'){
+      confirmButton(button,()=>{
+        S.rounds.pop();
+        render();
+      });
+      return;
+    }
+
+    if(button.id==='reset'){
+      confirmButton(button,()=>{
+        S.rounds=[];
+        S.cur={p:[0,0,0,0],c:[0,0,0,0]};
+        render();
+      });
+    }
+  });
+
+  document.addEventListener('input',event=>{
+    const input=event.target;
+
+    if(input.id==='themeColor'){
+      S.themeColor=input.value;
+      document.documentElement.style.setProperty('--gold',S.themeColor);
+      save();
+      return;
+    }
+
+    if(input.dataset.kind){
+      const kind=input.dataset.kind;
+      const index=Number(input.dataset.i);
+      S.cur[kind][index]=number(input.value);
+      updateRound();
+      save();
+      return;
+    }
+
+    if(input.dataset.name!==undefined){
+      const index=Number(input.dataset.name);
+      S.names[index]=input.value;
+
+      document.querySelectorAll('.playerName').forEach((element,i)=>{
+        element.textContent=name(i);
+      });
+
+      document.querySelectorAll('.avatar').forEach((element,i)=>{
+        element.textContent=[...name(i)][0]||'';
+      });
+
+      renderStandings();
+      renderHistory();
+      save();
+      return;
+    }
+
+    if(input.id==='target')S.target=number(input.value)||551;
+    else if(input.id==='passValue')S.passValue=number(input.value);
+    else if(input.id==='cardValue')S.cardValue=number(input.value);
+    else return;
+
+    renderHeader();
+    renderStandings();
+    renderRound();
+    renderHistory();
+    save();
+  });
+
+  document.addEventListener('focusin',event=>{
+    if(event.target.matches('.stepper input'))event.target.select();
+  });
+
+  renderSettings();
+  render();
+})();
+</script>
+</body>
+</html>
