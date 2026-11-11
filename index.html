@@ -8,40 +8,54 @@
 
 <style>
 :root{
-  --bg:#0a1020;--surface:#111a2e;--surface2:#17223a;--line:#293650;
-  --ink:#eaf0fa;--muted:#9ba9c2;--gold:#e2bd70;--goldInk:#211a0b;
+  --bg:#080d19;--surface:#111a2c;--surface2:#18243a;--line:#2a3953;
+  --ink:#eef3ff;--muted:#9aa9c1;--gold:#e2bd70;--goldInk:#211a0b;
   --red:#ff8577;--redBg:#34171a;--green:#6edcb0;--greenBg:#10302a;
   --display:'Reem Kufi','IBM Plex Sans Arabic',system-ui,sans-serif;
   --body:'IBM Plex Sans Arabic',system-ui,sans-serif;color-scheme:dark;
 }
 :root[data-theme="light"]{
-  --bg:#f3f5f9;--surface:#fff;--surface2:#eef1f7;--line:#dce1ec;
+  --bg:#eef2f8;--surface:#fff;--surface2:#f0f3f9;--line:#d8dfeb;
   --ink:#101a30;--muted:#5a6985;--gold:#8f6b1e;--goldInk:#fff;
   --red:#b3261e;--redBg:#fce9e7;--green:#13694a;--greenBg:#ddf1e8;
   color-scheme:light;
 }
 *{box-sizing:border-box}
 body{
-  margin:0;padding:14px 16px 30px;background:var(--bg);color:var(--ink);
+  min-height:100vh;margin:0;padding:18px 16px 32px;color:var(--ink);
   font:15px/1.55 var(--body);
-  background-image:radial-gradient(800px 350px at 50% -150px,#d8b56a20,transparent 70%);
+  background:
+    radial-gradient(ellipse at 12% 8%,color-mix(in srgb,var(--gold) 15%,transparent),transparent 30%),
+    radial-gradient(ellipse at 90% 28%,#3155a324,transparent 35%),
+    radial-gradient(ellipse at 50% 100%,#713a8520,transparent 36%),
+    linear-gradient(145deg,#080d19,#10192b 52%,#090f1c);
+  background-attachment:fixed;
+}
+:root[data-theme="light"] body{
+  background:
+    radial-gradient(ellipse at 12% 8%,color-mix(in srgb,var(--gold) 17%,transparent),transparent 32%),
+    radial-gradient(ellipse at 90% 28%,#8eaff022,transparent 35%),
+    linear-gradient(145deg,#eef2f8,#e4eaf3 55%,#f7f8fb);
 }
 button,input{font:inherit}
 button{color:inherit;cursor:pointer}
 button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.wrap{max-width:580px;margin:auto;display:flex;flex-direction:column;gap:14px}
+.wrap{max-width:620px;margin:auto;display:flex;flex-direction:column;gap:15px}
 .credit,footer{
-  width:max-content;max-width:100%;align-self:center;text-align:center;
-  color:var(--muted);font-size:11px;letter-spacing:.12em;
-  padding:7px 14px;border:1px solid var(--line);
-  border-radius:999px;background:var(--surface)
+  position:relative;width:max-content;max-width:100%;align-self:center;
+  display:flex;align-items:center;gap:9px;text-align:center;
+  padding:8px 17px;border:1px solid color-mix(in srgb,var(--gold) 48%,var(--line));
+  border-radius:999px;color:var(--gold);font:700 11px/1.2 system-ui,sans-serif;
+  letter-spacing:.13em;background:linear-gradient(135deg,var(--surface),color-mix(in srgb,var(--gold) 10%,var(--surface)));
+  box-shadow:0 8px 28px #0002,inset 0 1px #ffffff10;
 }
+.credit::before,footer::before{content:"✦";font-size:13px}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{display:flex;align-items:center;gap:12px}
 .mark{
-  width:46px;height:46px;border-radius:14px;border:1px solid var(--gold);
-  background:var(--surface);color:var(--gold);display:grid;
-  place-items:center;font-size:25px
+  width:48px;height:48px;border-radius:16px;border:1px solid color-mix(in srgb,var(--gold) 65%,var(--line));
+  background:linear-gradient(145deg,var(--surface2),var(--surface));color:var(--gold);
+  display:grid;place-items:center;font-size:25px;box-shadow:0 8px 22px #0003
 }
 h1,h2{font-family:var(--display);margin:0}
 h1{font-size:24px;line-height:1.2}
@@ -49,12 +63,16 @@ h2{font-size:18px}
 .sub{color:var(--muted);font-size:13px}
 .pill{
   border:1px solid var(--line);background:var(--surface);border-radius:999px;
-  padding:5px 12px;color:var(--muted);font-size:13px;white-space:nowrap
+  padding:6px 12px;color:var(--muted);font-size:13px;white-space:nowrap
 }
-.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:15px}
+.card{
+  background:linear-gradient(145deg,color-mix(in srgb,var(--surface) 96%,white),var(--surface));
+  border:1px solid var(--line);border-radius:18px;padding:15px;
+  box-shadow:0 12px 35px #00000014
+}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .tile{display:flex;flex-direction:column;gap:8px}
-.tile.first{border-color:var(--gold)}
+.tile.first{border-color:var(--gold);box-shadow:0 0 0 1px color-mix(in srgb,var(--gold) 18%,transparent)}
 .tile.lost{border-color:var(--red);background:var(--redBg)}
 .th{display:flex;align-items:center;gap:8px}
 .rank{
@@ -65,7 +83,7 @@ h2{font-size:18px}
 .nm{font-weight:700;overflow-wrap:anywhere}
 .total{font:700 40px/1 var(--display);font-variant-numeric:tabular-nums}
 .bar{height:5px;background:var(--surface2);border-radius:9px;overflow:hidden}
-.bar i{height:100%;display:block;background:var(--gold);border-radius:9px}
+.bar i{height:100%;display:block;background:var(--gold);border-radius:9px;transition:width .3s}
 .lost .bar i{background:var(--red)}
 .meta{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
 .banner{background:var(--greenBg);border:1px solid var(--green);border-radius:14px;padding:12px;font-weight:600}
@@ -98,16 +116,14 @@ h2{font-size:18px}
   min-width:0;width:100%;border:0;background:transparent;color:var(--ink);
   text-align:center;font:700 20px var(--display);-moz-appearance:textfield
 }
-.stepper input::-webkit-inner-spin-button,.stepper input::-webkit-outer-spin-button{
-  -webkit-appearance:none;margin:0
-}
+.stepper input::-webkit-inner-spin-button,.stepper input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 .step{
   width:42px;height:42px;border:1px solid var(--line);border-radius:50%;
-  background:var(--surface);font-size:21px;flex:none
+  background:var(--surface);font-size:21px;flex:none;transition:transform .12s
 }
 .step[data-action="inc"]{color:#55d6a2;border-color:#55d6a2}
 .step[data-action="dec"]{color:#ff7185;border-color:#ff7185}
-.step:active{transform:scale(.94);background:var(--line)}
+.step:active{transform:scale(.92);background:var(--line)}
 .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
 .btn{
   min-height:46px;padding:0 15px;border:1px solid var(--line);
@@ -127,6 +143,40 @@ tfoot th,tfoot td{border-top:1px solid var(--gold);border-bottom:0;color:var(--g
 .empty{color:var(--muted);font-size:13px}
 footer{margin-top:2px}
 
+/* عجلة الموزّع */
+.dealerCard{
+  position:relative;overflow:hidden;text-align:center;
+  border-color:color-mix(in srgb,var(--gold) 45%,var(--line));
+  background:
+    radial-gradient(ellipse at 50% 50%,color-mix(in srgb,var(--gold) 12%,var(--surface)),transparent 72%),
+    var(--surface);
+}
+.dealerTitle{font-size:12px;color:var(--muted);letter-spacing:.06em}
+.dealerWheel{
+  position:relative;height:152px;margin:8px auto 0;max-width:440px;
+  overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  -webkit-mask-image:linear-gradient(transparent,#000 24%,#000 76%,transparent);
+  mask-image:linear-gradient(transparent,#000 24%,#000 76%,transparent)
+}
+.dealerWheel::after{
+  content:"";position:absolute;inset:50% 8% auto;height:48px;transform:translateY(-50%);
+  border-top:1px solid color-mix(in srgb,var(--gold) 55%,transparent);
+  border-bottom:1px solid color-mix(in srgb,var(--gold) 55%,transparent);
+  border-radius:13px;pointer-events:none
+}
+.dealerName{
+  position:relative;z-index:1;height:48px;display:flex;align-items:center;justify-content:center;
+  width:100%;font:700 17px var(--display);transition:all .35s ease
+}
+.dealerName.current{
+  color:var(--gold);font-size:24px;text-shadow:0 0 22px color-mix(in srgb,var(--gold) 30%,transparent)
+}
+.dealerName.neighbor{filter:blur(1.2px);opacity:.36;transform:scale(.88)}
+.dealerIcon{display:inline-grid;place-items:center;width:30px;height:30px;margin-inline-start:8px;border-radius:50%;background:color-mix(in srgb,var(--gold) 17%,var(--surface));font-size:15px}
+.dealerHint{font-size:11px;color:var(--muted);margin-top:3px}
+.dealerWheel.spin .dealerName{animation:wheelUp .55s cubic-bezier(.2,.75,.25,1)}
+@keyframes wheelUp{from{transform:translateY(26px);opacity:.2;filter:blur(5px)}to{transform:translateY(0);opacity:1;filter:blur(0)}}
+
 /* احتفال نهاية اللعبة */
 .celebration{
   position:fixed;inset:0;z-index:99;display:grid;place-items:center;
@@ -142,32 +192,25 @@ footer{margin-top:2px}
 .celebrationBox h2{color:var(--gold);font-size:28px;margin:8px 0}
 .celebrationBox p{color:var(--muted);margin:0 0 14px}
 .winnerList{list-style:none;padding:0;margin:12px 0 20px;text-align:right}
-.winnerList li{
-  padding:10px;margin:7px 0;border:1px solid var(--line);
-  border-radius:12px;background:var(--surface2)
-}
+.winnerList li{padding:10px;margin:7px 0;border:1px solid var(--line);border-radius:12px;background:var(--surface2)}
 .winnerList b{color:var(--gold)}
-.confetti{
-  position:fixed;z-index:100;top:-20px;width:10px;height:16px;
-  pointer-events:none;animation:fall 3.2s linear forwards
-}
-@keyframes fall{
-  to{transform:translate3d(var(--drift),110vh,0) rotate(900deg);opacity:.85}
-}
+.confetti{position:fixed;z-index:100;top:-20px;width:10px;height:16px;pointer-events:none;animation:fall 3.2s linear forwards}
+@keyframes fall{to{transform:translate3d(var(--drift),110vh,0) rotate(900deg);opacity:.85}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes popIn{from{transform:scale(.75);opacity:0}to{transform:scale(1);opacity:1}}
 @media(max-width:380px){
-  body{padding-inline:10px}
-  .card{padding:12px}
-  .fields.three{grid-template-columns:1fr}
-  .total{font-size:34px}
+  body{padding-inline:10px}.card{padding:12px}.fields.three{grid-template-columns:1fr}
+  .total{font-size:34px}.dealerWheel{height:140px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
 </style>
 </head>
 
 <body>
 <main class="wrap">
-  <div class="credit" dir="ltr">✦ Powered by Samy Aziz ✦</div>
+  <div class="credit" dir="ltr">Powered by Samy Aziz</div>
 
   <header class="top">
     <div class="brand">
@@ -184,26 +227,20 @@ footer{margin-top:2px}
     <summary>⚙️ الأسامي والإعدادات</summary>
     <div class="fields" id="names"></div>
     <div class="fields three">
-      <div class="field">
-        <label for="target">الفورة لحد</label>
-        <input id="target" type="number" min="1" inputmode="numeric">
-      </div>
-      <div class="field">
-        <label for="passValue">نقط الباص</label>
-        <input id="passValue" type="number" min="0" inputmode="numeric">
-      </div>
-      <div class="field">
-        <label for="cardValue">نقط الورقة</label>
-        <input id="cardValue" type="number" min="0" inputmode="numeric">
-      </div>
+      <div class="field"><label for="target">الفورة لحد</label><input id="target" type="number" min="1" inputmode="numeric"></div>
+      <div class="field"><label for="passValue">نقط الباص</label><input id="passValue" type="number" min="0" inputmode="numeric"></div>
+      <div class="field"><label for="cardValue">نقط الورقة</label><input id="cardValue" type="number" min="0" inputmode="numeric"></div>
     </div>
     <div class="fields">
-      <div class="field">
-        <label for="themeColor">لون التصميم</label>
-        <input id="themeColor" type="color" value="#e2bd70">
-      </div>
+      <div class="field"><label for="themeColor">لون التصميم</label><input id="themeColor" type="color" value="#e2bd70"></div>
     </div>
   </details>
+
+  <section class="card dealerCard" aria-label="دور توزيع الورق">
+    <div class="dealerTitle">🎴 دور توزيع الورق</div>
+    <div class="dealerWheel" id="dealerWheel" aria-live="polite"></div>
+    <div class="dealerHint">الدور بيتحرك تلقائيًا بعد تسجيل كل جيم</div>
+  </section>
 
   <div id="banner" class="banner" hidden></div>
   <section class="grid" id="standings" aria-label="مجموع اللاعبين"></section>
@@ -218,283 +255,183 @@ footer{margin-top:2px}
     </div>
   </section>
 
-  <footer dir="ltr">✦ Powered by Samy Aziz ✦</footer>
+  <footer dir="ltr">Powered by Samy Aziz</footer>
 </main>
 
 <script>
 (function(){
   const KEY='saba-awraq-pro-v2';
-
   const fresh=()=>({
     names:['اللاعب 1','اللاعب 2','اللاعب 3','اللاعب 4'],
-    target:551,
-    passValue:10,
-    cardValue:1,
-    themeColor:'#e2bd70',
-    rounds:[],
-    cur:{p:[0,0,0,0],c:[0,0,0,0]}
+    target:551,passValue:10,cardValue:1,themeColor:'#e2bd70',
+    rounds:[],dealerIndex:0,cur:{p:[0,0,0,0],c:[0,0,0,0]}
   });
 
   let S=fresh();
-
   try{
     const saved=JSON.parse(localStorage.getItem(KEY));
     if(saved&&Array.isArray(saved.names)&&saved.names.length===4){
       S={...fresh(),...saved};
+      S.dealerIndex=Number.isInteger(S.dealerIndex)?((S.dealerIndex%4)+4)%4:((S.rounds.length%4)+4)%4;
+      if(!S.cur)S.cur={p:[0,0,0,0],c:[0,0,0,0]};
     }
   }catch(e){}
 
   const $=selector=>document.querySelector(selector);
   const ids=[0,1,2,3];
-
-  const esc=text=>String(text).replace(/[&<>"']/g,char=>({
-    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-  }[char]));
-
+  const esc=text=>String(text).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   const number=value=>Math.max(0,parseInt(value,10)||0);
   const name=i=>(S.names[i]||'').trim()||`لاعب ${i+1}`;
   const points=(passes,cards)=>passes*S.passValue+cards*S.cardValue;
 
-  function save(){
-    try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}
-  }
-
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
   function totals(){
-    return ids.map(i=>S.rounds.reduce(
-      (sum,round)=>sum+points(round.p[i],round.c[i]),0
-    ));
+    return ids.map(i=>S.rounds.reduce((sum,round)=>sum+points(round.p[i],round.c[i]),0));
   }
 
   function soundPass(playerName,action){
     try{
       const context=new (window.AudioContext||window.webkitAudioContext)();
-      const oscillator=context.createOscillator();
-      const gain=context.createGain();
-
+      const oscillator=context.createOscillator(),gain=context.createGain();
       oscillator.type='triangle';
-      oscillator.frequency.setValueAtTime(880,context.currentTime);
-      oscillator.frequency.setValueAtTime(1175,context.currentTime+0.09);
-      gain.gain.setValueAtTime(0.45,context.currentTime);
-      gain.gain.setValueAtTime(0.45,context.currentTime+0.16);
-      gain.gain.exponentialRampToValueAtTime(0.001,context.currentTime+0.35);
-
-      oscillator.connect(gain);
-      gain.connect(context.destination);
-      oscillator.start();
-      oscillator.stop(context.currentTime+0.35);
+      oscillator.frequency.setValueAtTime(action==='inc'?880:660,context.currentTime);
+      oscillator.frequency.setValueAtTime(action==='inc'?1175:520,context.currentTime+.09);
+      gain.gain.setValueAtTime(.4,context.currentTime);
+      gain.gain.exponentialRampToValueAtTime(.001,context.currentTime+.35);
+      oscillator.connect(gain);gain.connect(context.destination);
+      oscillator.start();oscillator.stop(context.currentTime+.35);
       setTimeout(()=>context.close(),500);
     }catch(e){}
-
-    if('speechSynthesis' in window){
+    if('speechSynthesis'in window){
       window.speechSynthesis.cancel();
-      const message=action==='inc'
-        ? `باص على ${playerName}`
-        : `تعديل الباص للاعب ${playerName}`;
-      const speech=new SpeechSynthesisUtterance(message);
-      speech.lang='ar-EG';
-      speech.volume=1;
-      speech.rate=1;
-      speech.pitch=1.1;
-      setTimeout(()=>window.speechSynthesis.speak(speech),180);
+      const speech=new SpeechSynthesisUtterance(action==='inc'?`باص على ${playerName}`:`نقص باص من ${playerName}`);
+      speech.lang='ar-EG';speech.volume=1;speech.rate=1;speech.pitch=1.1;
+      setTimeout(()=>window.speechSynthesis.speak(speech),150);
     }
-
     if(navigator.vibrate)navigator.vibrate(45);
   }
 
   function playWinSound(){
     try{
       const context=new (window.AudioContext||window.webkitAudioContext)();
-      const notes=[523,659,784,1047];
-
-      notes.forEach((frequency,index)=>{
-        const oscillator=context.createOscillator();
-        const gain=context.createGain();
-        const start=context.currentTime+index*.16;
-
-        oscillator.type='triangle';
-        oscillator.frequency.setValueAtTime(frequency,start);
-        gain.gain.setValueAtTime(.001,start);
-        gain.gain.exponentialRampToValueAtTime(.25,start+.03);
+      [523,659,784,1047].forEach((frequency,index)=>{
+        const oscillator=context.createOscillator(),gain=context.createGain(),start=context.currentTime+index*.16;
+        oscillator.type='triangle';oscillator.frequency.setValueAtTime(frequency,start);
+        gain.gain.setValueAtTime(.001,start);gain.gain.exponentialRampToValueAtTime(.25,start+.03);
         gain.gain.exponentialRampToValueAtTime(.001,start+.42);
-
-        oscillator.connect(gain);
-        gain.connect(context.destination);
-        oscillator.start(start);
-        oscillator.stop(start+.45);
+        oscillator.connect(gain);gain.connect(context.destination);
+        oscillator.start(start);oscillator.stop(start+.45);
       });
-
       setTimeout(()=>context.close(),1200);
     }catch(e){}
   }
 
   function celebrateWinner(ranking){
     playWinSound();
-
-    const titles=[
-      'كينج',
-      'صب كينج',
-      'يا عيني على الكوز',
-      'صب كوز كبير'
-    ];
-
-    const announcement=ranking.map((player,index)=>
-      `${['الأول','التاني','التالت','الرابع'][index]} ${player.name} ${titles[index]}`
-    ).join('. ');
-
-    if('speechSynthesis' in window){
+    const titles=['كينج','صب كينج','يا عيني على الكوز','صب كوز كبير'];
+    const places=['الأول','التاني','التالت','الرابع'];
+    const announcement=ranking.map((player,index)=>`${places[index]} ${player.name} ${titles[index]}`).join('. ');
+    if('speechSynthesis'in window){
       window.speechSynthesis.cancel();
       const speech=new SpeechSynthesisUtterance(`ترتيب اللعبة. ${announcement}`);
-      speech.lang='ar-EG';
-      speech.rate=.88;
-      speech.pitch=1.08;
+      speech.lang='ar-EG';speech.rate=.88;speech.pitch=1.08;
       window.speechSynthesis.speak(speech);
     }
-
     for(let i=0;i<90;i++){
       const piece=document.createElement('i');
-      piece.className='confetti';
-      piece.style.left=Math.random()*100+'vw';
-      piece.style.backgroundColor=
-        ['#e2bd70','#55d6a2','#ff7185','#74b9ff','#c084fc'][i%5];
+      piece.className='confetti';piece.style.left=Math.random()*100+'vw';
+      piece.style.backgroundColor=['#e2bd70','#55d6a2','#ff7185','#74b9ff','#c084fc'][i%5];
       piece.style.setProperty('--drift',(Math.random()*240-120)+'px');
       piece.style.animationDelay=(Math.random()*.8)+'s';
-      document.body.appendChild(piece);
-      setTimeout(()=>piece.remove(),4200);
+      document.body.appendChild(piece);setTimeout(()=>piece.remove(),4200);
     }
-
     const list=ranking.map((player,index)=>`
-      <li><b>${['الأول','التاني','التالت','الرابع'][index]} — ${esc(titles[index])}</b><br>
-      ${esc(player.name)} · ${player.score} نقطة</li>
+      <li><b>${places[index]} — ${esc(titles[index])}</b><br>${esc(player.name)} · ${player.score} نقطة</li>
     `).join('');
-
     const overlay=document.createElement('div');
     overlay.className='celebration';
-    overlay.innerHTML=`
-      <div class="celebrationBox" role="dialog" aria-modal="true">
-        <div class="trophy">🏆</div>
-        <h2>ترتيب اللعبة!</h2>
-        <p>مبروك يا أبطال 🎉</p>
-        <ol class="winnerList">${list}</ol>
-        <button class="btn primary" type="button">احتفلنا 🎉</button>
-      </div>`;
-
+    overlay.innerHTML=`<div class="celebrationBox" role="dialog" aria-modal="true">
+      <div class="trophy">🏆</div><h2>ترتيب اللعبة!</h2><p>مبروك يا أبطال 🎉</p>
+      <ol class="winnerList">${list}</ol><button class="btn primary" type="button">احتفلنا 🎉</button>
+    </div>`;
     overlay.addEventListener('click',()=>overlay.remove());
     document.body.appendChild(overlay);
   }
 
   function renderSettings(){
     $('#names').innerHTML=ids.map(i=>`
-      <div class="field">
-        <label for="name${i}">اسم اللاعب ${i+1}</label>
-        <input id="name${i}" data-name="${i}" maxlength="20" value="${esc(S.names[i])}">
-      </div>
+      <div class="field"><label for="name${i}">اسم اللاعب ${i+1}</label>
+      <input id="name${i}" data-name="${i}" maxlength="20" value="${esc(S.names[i])}"></div>
     `).join('');
-
-    $('#target').value=S.target;
-    $('#passValue').value=S.passValue;
-    $('#cardValue').value=S.cardValue;
+    $('#target').value=S.target;$('#passValue').value=S.passValue;$('#cardValue').value=S.cardValue;
     $('#themeColor').value=S.themeColor||'#e2bd70';
     document.documentElement.style.setProperty('--gold',S.themeColor||'#e2bd70');
   }
 
   function renderHeader(){
-    $('#subtitle').textContent=
-      `الفورة ${S.target} · الباص ${S.passValue} · الورقة ${S.cardValue}`;
+    $('#subtitle').textContent=`الفورة ${S.target} · الباص ${S.passValue} · الورقة ${S.cardValue}`;
     $('#roundPill').textContent=`الجيم ${S.rounds.length+1}`;
   }
 
-  function renderStandings(){
-    const scores=totals();
-    const lowest=Math.min(...scores);
-    const banner=$('#banner');
-    const lost=ids.filter(i=>scores[i]>=S.target);
+  function renderDealer(animate=false){
+    const current=S.dealerIndex;
+    const previous=(current+3)%4,next=(current+1)%4;
+    const wheel=$('#dealerWheel');
+    wheel.innerHTML=`
+      <div class="dealerName neighbor">${esc(name(previous))}</div>
+      <div class="dealerName current"><span class="dealerIcon">♠</span>${esc(name(current))}</div>
+      <div class="dealerName neighbor">${esc(name(next))}</div>`;
+    if(animate){
+      wheel.classList.remove('spin');void wheel.offsetWidth;wheel.classList.add('spin');
+      setTimeout(()=>wheel.classList.remove('spin'),600);
+    }
+  }
 
+  function renderStandings(){
+    const scores=totals(),lowest=Math.min(...scores),banner=$('#banner');
+    const lost=ids.filter(i=>scores[i]>=S.target);
     if(lost.length){
       const winners=ids.filter(i=>scores[i]===lowest);
       banner.className='banner lostBanner';
-      banner.textContent=
-        `الفورة خلصت! ${lost.map(name).join(' و ')} وصلوا للحد. الأقل نقاط: ${winners.map(name).join(' و ')} (${lowest}).`;
+      banner.textContent=`الفورة خلصت! ${lost.map(name).join(' و ')} وصلوا للحد. الأقل نقاط: ${winners.map(name).join(' و ')} (${lowest}).`;
       banner.hidden=false;
-    }else{
-      banner.hidden=true;
-    }
+    }else banner.hidden=true;
 
     $('#standings').innerHTML=ids.map(i=>{
-      const score=scores[i];
-      const isLost=score>=S.target;
+      const score=scores[i],isLost=score>=S.target;
       const percent=Math.min(100,Math.round(score/S.target*100));
       const rank=1+scores.filter(value=>value<score).length;
-      const tag=isLost?'خسران':
-        (score===lowest&&S.rounds.length?'الأقل نقاط':'');
-
-      return `
-        <article class="card tile ${isLost?'lost':''} ${rank===1&&S.rounds.length&&!isLost?'first':''}">
-          <div class="th">
-            <span class="rank">${S.rounds.length?rank:'–'}</span>
-            <span class="nm">${esc(name(i))}</span>
-          </div>
-          <div class="total">${score}</div>
-          <div class="bar"><i style="width:${percent}%"></i></div>
-          <div class="meta">
-            <span>${isLost?'عدّى الحد':`باقي ${S.target-score}`}</span>
-            <span>${tag}</span>
-          </div>
-        </article>
-      `;
+      const tag=isLost?'خسران':(score===lowest&&S.rounds.length?'الأقل نقاط':'');
+      return `<article class="card tile ${isLost?'lost':''} ${rank===1&&S.rounds.length&&!isLost?'first':''}">
+        <div class="th"><span class="rank">${S.rounds.length?rank:'–'}</span><span class="nm">${esc(name(i))}</span></div>
+        <div class="total">${score}</div><div class="bar"><i style="width:${percent}%"></i></div>
+        <div class="meta"><span>${isLost?'عدّى الحد':`باقي ${S.target-score}`}</span><span>${tag}</span></div>
+      </article>`;
     }).join('');
   }
 
   function counterField(kind,i,label){
-    return `
-      <div>
-        <div class="labelLine">
-          <span>${label}</span>
-          <span id="hint-${kind}${i}"></span>
-        </div>
-        <div class="stepper" dir="ltr">
-          <button class="step" type="button" data-action="dec" data-kind="${kind}" data-i="${i}" aria-label="نقص">−</button>
-          <input id="input-${kind}${i}" data-kind="${kind}" data-i="${i}" type="number" min="0" inputmode="numeric" value="${S.cur[kind][i]}">
-          <button class="step" type="button" data-action="inc" data-kind="${kind}" data-i="${i}" aria-label="${kind==='p'?'زود باص':'زود ورقة'}">+</button>
-        </div>
-      </div>
-    `;
+    return `<div><div class="labelLine"><span>${label}</span><span id="hint-${kind}${i}"></span></div>
+      <div class="stepper" dir="ltr">
+        <button class="step" type="button" data-action="dec" data-kind="${kind}" data-i="${i}" aria-label="نقص">−</button>
+        <input id="input-${kind}${i}" data-kind="${kind}" data-i="${i}" type="number" min="0" inputmode="numeric" value="${S.cur[kind][i]}">
+        <button class="step" type="button" data-action="inc" data-kind="${kind}" data-i="${i}" aria-label="${kind==='p'?'زود باص':'زود ورقة'}">+</button>
+      </div></div>`;
   }
 
   function renderRound(){
-    const roundNumber=S.rounds.length+1;
-
-    let html=`
-      <div>
-        <h2>الجيم رقم ${roundNumber}</h2>
-        <span class="sub">كل ضغطة + أو − في خانة الباص تطلع صوت وتنطق اسم اللاعب.</span>
-      </div>
-    `;
-
+    let html=`<div><h2>الجيم رقم ${S.rounds.length+1}</h2>
+      <span class="sub">كل ضغطة + أو − في خانة الباص تطلع صوت وتنطق اسم اللاعب.</span></div>`;
     ids.forEach(i=>{
-      html+=`
-        <div class="player">
-          <div class="playerHead">
-            <span class="avatar">${esc([...name(i)][0]||'')}</span>
-            <span class="playerName">${esc(name(i))}</span>
-            <span class="roundScore" id="score${i}"></span>
-          </div>
-          <div class="two">
-            ${counterField('p',i,'باصات')}
-            ${counterField('c',i,'الورق المتبقي')}
-          </div>
-        </div>
-      `;
+      html+=`<div class="player"><div class="playerHead">
+        <span class="avatar">${esc([...name(i)][0]||'')}</span>
+        <span class="playerName">${esc(name(i))}</span>
+        <span class="roundScore" id="score${i}"></span></div>
+        <div class="two">${counterField('p',i,'باصات')}${counterField('c',i,'الورق المتبقي')}</div></div>`;
     });
-
-    html+=`
-      <div class="actions">
-        <button class="btn primary" id="record">✅ سجّل الجيم</button>
-        <button class="btn" id="clear">صفّر الجيم الحالي</button>
-      </div>
-    `;
-
-    $('#round').innerHTML=html;
-    updateRound();
+    html+=`<div class="actions"><button class="btn primary" id="record">✅ سجّل الجيم</button>
+      <button class="btn" id="clear">صفّر الجيم الحالي</button></div>`;
+    $('#round').innerHTML=html;updateRound();
   }
 
   function updateRound(){
@@ -507,190 +444,93 @@ footer{margin-top:2px}
 
   function renderHistory(){
     const element=$('#history');
-    $('#undo').disabled=!S.rounds.length;
-    $('#reset').disabled=!S.rounds.length;
-
-    if(!S.rounds.length){
-      element.innerHTML='<p class="empty">لسه مفيش جيمات مسجلة.</p>';
-      return;
-    }
-
+    $('#undo').disabled=!S.rounds.length;$('#reset').disabled=!S.rounds.length;
+    if(!S.rounds.length){element.innerHTML='<p class="empty">لسه مفيش جيمات مسجلة.</p>';return}
     const scores=totals();
-
-    element.innerHTML=`
-      <table>
-        <thead>
-          <tr><th>جيم</th>${ids.map(i=>`<th>${esc(name(i))}</th>`).join('')}</tr>
-        </thead>
-        <tbody>
-          ${S.rounds.map((round,index)=>`
-            <tr>
-              <th>${index+1}</th>
-              ${ids.map(i=>`
-                <td>
-                  <b>${points(round.p[i],round.c[i])}</b>
-                  <small>${round.p[i]} باص + ${round.c[i]} ورق</small>
-                </td>
-              `).join('')}
-            </tr>
-          `).join('')}
-        </tbody>
-        <tfoot>
-          <tr><th>المجموع</th>${ids.map(i=>`<td>${scores[i]}</td>`).join('')}</tr>
-        </tfoot>
-      </table>
-    `;
+    element.innerHTML=`<table><thead><tr><th>جيم</th>${ids.map(i=>`<th>${esc(name(i))}</th>`).join('')}</tr></thead>
+      <tbody>${S.rounds.map((round,index)=>`<tr><th>${index+1}</th>${ids.map(i=>`
+        <td><b>${points(round.p[i],round.c[i])}</b><small>${round.p[i]} باص + ${round.c[i]} ورق</small></td>`).join('')}</tr>`).join('')}</tbody>
+      <tfoot><tr><th>المجموع</th>${ids.map(i=>`<td>${scores[i]}</td>`).join('')}</tr></tfoot></table>`;
   }
 
-  function render(){
-    renderHeader();
-    renderStandings();
-    renderRound();
-    renderHistory();
-    save();
+  function render(animateDealer=false){
+    renderHeader();renderDealer(animateDealer);renderStandings();renderRound();renderHistory();save();
   }
 
   function confirmButton(button,callback){
     if(button.dataset.confirm){
-      clearTimeout(button.timer);
-      button.textContent=button.dataset.label;
-      delete button.dataset.confirm;
-      callback();
-      return;
+      clearTimeout(button.timer);button.textContent=button.dataset.label;
+      delete button.dataset.confirm;callback();return;
     }
-
-    button.dataset.label=button.textContent;
-    button.dataset.confirm='1';
+    button.dataset.label=button.textContent;button.dataset.confirm='1';
     button.textContent='اضغط مرة ثانية للتأكيد';
-
-    button.timer=setTimeout(()=>{
-      button.textContent=button.dataset.label;
-      delete button.dataset.confirm;
-    },2500);
+    button.timer=setTimeout(()=>{button.textContent=button.dataset.label;delete button.dataset.confirm},2500);
   }
 
   document.addEventListener('click',event=>{
-    const button=event.target.closest('button');
-    if(!button)return;
-
+    const button=event.target.closest('button');if(!button)return;
     if(button.dataset.action){
-      const kind=button.dataset.kind;
-      const index=Number(button.dataset.i);
-      const action=button.dataset.action;
-      const change=action==='inc'?1:-1;
-
-      S.cur[kind][index]=Math.max(0,S.cur[kind][index]+change);
+      const kind=button.dataset.kind,index=Number(button.dataset.i),action=button.dataset.action;
+      S.cur[kind][index]=Math.max(0,S.cur[kind][index]+(action==='inc'?1:-1));
       $(`#input-${kind}${index}`).value=S.cur[kind][index];
-
       if(kind==='p')soundPass(name(index),action);
-
-      updateRound();
-      save();
-      return;
+      updateRound();save();return;
     }
-
     if(button.id==='record'){
-      const oldTotals=totals();
-      const hadLoser=oldTotals.some(score=>score>=S.target);
-
+      const oldTotals=totals(),hadLoser=oldTotals.some(score=>score>=S.target);
       S.rounds.push({p:S.cur.p.slice(),c:S.cur.c.slice()});
-
-      const newTotals=totals();
-      const hasLoser=newTotals.some(score=>score>=S.target);
-
+      const newTotals=totals(),hasLoser=newTotals.some(score=>score>=S.target);
       if(!hadLoser&&hasLoser){
-        const ranking=ids
-          .map(i=>({name:name(i),score:newTotals[i],id:i}))
-          .sort((a,b)=>a.score-b.score||a.id-b.id);
-
+        const ranking=ids.map(i=>({name:name(i),score:newTotals[i],id:i})).sort((a,b)=>a.score-b.score||a.id-b.id);
         setTimeout(()=>celebrateWinner(ranking),250);
       }
-
       S.cur={p:[0,0,0,0],c:[0,0,0,0]};
-      render();
-      window.scrollTo({top:0,behavior:'smooth'});
-      return;
+      S.dealerIndex=(S.dealerIndex+1)%4;
+      render(true);window.scrollTo({top:0,behavior:'smooth'});return;
     }
-
     if(button.id==='clear'){
-      S.cur={p:[0,0,0,0],c:[0,0,0,0]};
-      renderRound();
-      save();
-      return;
+      S.cur={p:[0,0,0,0],c:[0,0,0,0]};renderRound();save();return;
     }
-
     if(button.id==='undo'){
       confirmButton(button,()=>{
-        S.rounds.pop();
-        render();
-      });
-      return;
+        if(S.rounds.length){S.rounds.pop();S.dealerIndex=(S.dealerIndex+3)%4}
+        render(true);
+      });return;
     }
-
     if(button.id==='reset'){
       confirmButton(button,()=>{
-        S.rounds=[];
-        S.cur={p:[0,0,0,0],c:[0,0,0,0]};
-        render();
+        S.rounds=[];S.cur={p:[0,0,0,0],c:[0,0,0,0]};S.dealerIndex=0;render(true);
       });
     }
   });
 
   document.addEventListener('input',event=>{
     const input=event.target;
-
     if(input.id==='themeColor'){
-      S.themeColor=input.value;
-      document.documentElement.style.setProperty('--gold',S.themeColor);
-      save();
-      return;
+      S.themeColor=input.value;document.documentElement.style.setProperty('--gold',S.themeColor);save();return;
     }
-
     if(input.dataset.kind){
-      const kind=input.dataset.kind;
-      const index=Number(input.dataset.i);
-      S.cur[kind][index]=number(input.value);
-      updateRound();
-      save();
-      return;
+      const kind=input.dataset.kind,index=Number(input.dataset.i);
+      S.cur[kind][index]=number(input.value);updateRound();save();return;
     }
-
     if(input.dataset.name!==undefined){
-      const index=Number(input.dataset.name);
-      S.names[index]=input.value;
-
-      document.querySelectorAll('.playerName').forEach((element,i)=>{
-        element.textContent=name(i);
-      });
-
-      document.querySelectorAll('.avatar').forEach((element,i)=>{
-        element.textContent=[...name(i)][0]||'';
-      });
-
-      renderStandings();
-      renderHistory();
-      save();
-      return;
+      const index=Number(input.dataset.name);S.names[index]=input.value;
+      document.querySelectorAll('.playerName').forEach((element,i)=>element.textContent=name(i));
+      document.querySelectorAll('.avatar').forEach((element,i)=>element.textContent=[...name(i)][0]||'');
+      renderDealer();renderStandings();renderHistory();save();return;
     }
-
     if(input.id==='target')S.target=number(input.value)||551;
     else if(input.id==='passValue')S.passValue=number(input.value);
     else if(input.id==='cardValue')S.cardValue=number(input.value);
     else return;
-
-    renderHeader();
-    renderStandings();
-    renderRound();
-    renderHistory();
-    save();
+    renderHeader();renderStandings();renderRound();renderHistory();save();
   });
 
   document.addEventListener('focusin',event=>{
     if(event.target.matches('.stepper input'))event.target.select();
   });
 
-  renderSettings();
-  render();
+  renderSettings();render();
 })();
 </script>
 </body>
