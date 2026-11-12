@@ -328,7 +328,7 @@ footer{margin-top:2px}
 
   function celebrateWinner(ranking){
     playWinSound();
-    const titles=['كينج','صب كينج','يا عيني على الكوز','صب كوز كبير'];
+    const titles=['كينج','صب كينج','يا عيني على صب كوز','يا عيني عليك يا كوز '];
     const places=['الأول','التاني','التالت','الرابع'];
     const announcement=ranking.map((player,index)=>`${places[index]} ${player.name} ${titles[index]}`).join('. ');
     if('speechSynthesis'in window){
