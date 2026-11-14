@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>سبع ورقات</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Reem+Kufi:wght@500;700&display=swap">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 :root{
@@ -42,12 +43,11 @@ button{color:inherit;cursor:pointer}
 button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .wrap{max-width:620px;margin:auto;display:flex;flex-direction:column;gap:15px}
 .credit,footer{
-  position:relative;width:max-content;max-width:100%;align-self:center;
-  display:flex;align-items:center;gap:9px;text-align:center;
+  width:max-content;max-width:100%;align-self:center;display:flex;align-items:center;gap:9px;
   padding:8px 17px;border:1px solid color-mix(in srgb,var(--gold) 48%,var(--line));
   border-radius:999px;color:var(--gold);font:700 11px/1.2 system-ui,sans-serif;
   letter-spacing:.13em;background:linear-gradient(135deg,var(--surface),color-mix(in srgb,var(--gold) 10%,var(--surface)));
-  box-shadow:0 8px 28px #0002,inset 0 1px #ffffff10;
+  box-shadow:0 8px 28px #0002,inset 0 1px #ffffff10
 }
 .credit::before,footer::before{content:"✦";font-size:13px}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px}
@@ -58,27 +58,28 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-o
   display:grid;place-items:center;font-size:25px;box-shadow:0 8px 22px #0003
 }
 h1,h2{font-family:var(--display);margin:0}
-h1{font-size:24px;line-height:1.2}
-h2{font-size:18px}
+h1{font-size:24px;line-height:1.2}h2{font-size:18px}
 .sub{color:var(--muted);font-size:13px}
-.pill{
-  border:1px solid var(--line);background:var(--surface);border-radius:999px;
-  padding:6px 12px;color:var(--muted);font-size:13px;white-space:nowrap
-}
+.pill{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;color:var(--muted);font-size:13px;white-space:nowrap}
 .card{
   background:linear-gradient(145deg,color-mix(in srgb,var(--surface) 96%,white),var(--surface));
-  border:1px solid var(--line);border-radius:18px;padding:15px;
-  box-shadow:0 12px 35px #00000014
+  border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:0 12px 35px #00000014
 }
+.roomCard{border-color:color-mix(in srgb,var(--gold) 45%,var(--line))}
+.roomStatus{font-size:12px;color:var(--muted);min-height:20px;margin:8px 0}
+.roomStatus.ok{color:var(--green)}.roomStatus.error{color:var(--red)}
+.roomCode{direction:ltr;text-align:center;font:700 14px ui-monospace,monospace;word-break:break-all;color:var(--gold);margin:10px 0}
+.roomInput{
+  min-width:0;width:100%;min-height:44px;padding:8px 10px;border:1px solid var(--line);
+  border-radius:10px;background:var(--surface2);color:var(--ink);direction:ltr;text-align:center
+}
+.roomActions{display:flex;gap:9px;flex-wrap:wrap}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .tile{display:flex;flex-direction:column;gap:8px}
 .tile.first{border-color:var(--gold);box-shadow:0 0 0 1px color-mix(in srgb,var(--gold) 18%,transparent)}
 .tile.lost{border-color:var(--red);background:var(--redBg)}
 .th{display:flex;align-items:center;gap:8px}
-.rank{
-  width:25px;height:25px;border-radius:50%;background:var(--surface2);
-  color:var(--muted);display:grid;place-items:center;font-size:12px;font-weight:700
-}
+.rank{width:25px;height:25px;border-radius:50%;background:var(--surface2);color:var(--muted);display:grid;place-items:center;font-size:12px;font-weight:700}
 .first .rank{background:var(--gold);color:var(--goldInk)}
 .nm{font-weight:700;overflow-wrap:anywhere}
 .total{font:700 40px/1 var(--display);font-variant-numeric:tabular-nums}
@@ -91,47 +92,26 @@ h2{font-size:18px}
 .fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
 .fields.three{grid-template-columns:repeat(3,minmax(0,1fr))}
 .field label{display:block;color:var(--muted);font-size:12px;margin-bottom:4px}
-.field input{
-  width:100%;min-height:44px;padding:8px 10px;border:1px solid var(--line);
-  border-radius:10px;background:var(--surface2);color:var(--ink)
-}
+.field input{width:100%;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--surface2);color:var(--ink)}
 .field input[type="color"]{padding:4px;cursor:pointer}
-.player{padding:14px 0}
-.player+.player{border-top:1px solid var(--line)}
+.player{padding:14px 0}.player+.player{border-top:1px solid var(--line)}
 .playerHead{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.avatar{
-  width:35px;height:35px;border-radius:50%;background:var(--surface2);
-  border:1px solid var(--line);display:grid;place-items:center;
-  color:var(--gold);font-weight:700
-}
+.avatar{width:35px;height:35px;border-radius:50%;background:var(--surface2);border:1px solid var(--line);display:grid;place-items:center;color:var(--gold);font-weight:700}
 .playerName{font-weight:700;flex:1;overflow-wrap:anywhere}
 .roundScore{font:700 18px var(--display);color:var(--gold)}
 .two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .labelLine{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-bottom:5px}
-.stepper{
-  display:flex;align-items:center;gap:4px;background:var(--surface2);
-  border:1px solid var(--line);border-radius:999px;padding:4px
-}
-.stepper input{
-  min-width:0;width:100%;border:0;background:transparent;color:var(--ink);
-  text-align:center;font:700 20px var(--display);-moz-appearance:textfield
-}
+.stepper{display:flex;align-items:center;gap:4px;background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:4px}
+.stepper input{min-width:0;width:100%;border:0;background:transparent;color:var(--ink);text-align:center;font:700 20px var(--display);-moz-appearance:textfield}
 .stepper input::-webkit-inner-spin-button,.stepper input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
-.step{
-  width:42px;height:42px;border:1px solid var(--line);border-radius:50%;
-  background:var(--surface);font-size:21px;flex:none;transition:transform .12s
-}
+.step{width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:var(--surface);font-size:21px;flex:none;transition:transform .12s}
 .step[data-action="inc"]{color:#55d6a2;border-color:#55d6a2}
 .step[data-action="dec"]{color:#ff7185;border-color:#ff7185}
 .step:active{transform:scale(.92);background:var(--line)}
 .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
-.btn{
-  min-height:46px;padding:0 15px;border:1px solid var(--line);
-  border-radius:12px;background:var(--surface2);font-weight:700;flex:1
-}
+.btn{min-height:46px;padding:0 15px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);font-weight:700;flex:1}
 .btn.primary{background:var(--gold);border-color:var(--gold);color:var(--goldInk)}
-.btn.danger{color:var(--red)}
-.btn:disabled{opacity:.45;cursor:default}
+.btn.danger{color:var(--red)}.btn:disabled{opacity:.45;cursor:default}
 .scroll{overflow-x:auto;margin-top:10px}
 table{border-collapse:collapse;width:100%;min-width:340px;font-variant-numeric:tabular-nums}
 th,td{padding:9px 5px;text-align:center;border-bottom:1px solid var(--line)}
@@ -141,55 +121,32 @@ td b{display:block;font:700 17px var(--display)}
 td small{color:var(--muted);font-size:11px;white-space:nowrap}
 tfoot th,tfoot td{border-top:1px solid var(--gold);border-bottom:0;color:var(--gold);font-weight:700}
 .empty{color:var(--muted);font-size:13px}
-footer{margin-top:2px}
-
-/* عجلة الموزّع */
 .dealerCard{
-  position:relative;overflow:hidden;text-align:center;
-  border-color:color-mix(in srgb,var(--gold) 45%,var(--line));
-  background:
-    radial-gradient(ellipse at 50% 50%,color-mix(in srgb,var(--gold) 12%,var(--surface)),transparent 72%),
-    var(--surface);
+  position:relative;overflow:hidden;text-align:center;border-color:color-mix(in srgb,var(--gold) 45%,var(--line));
+  background:radial-gradient(ellipse at 50% 50%,color-mix(in srgb,var(--gold) 12%,var(--surface)),transparent 72%),var(--surface)
 }
 .dealerTitle{font-size:12px;color:var(--muted);letter-spacing:.06em}
 .dealerWheel{
-  position:relative;height:152px;margin:8px auto 0;max-width:440px;
-  overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;height:152px;margin:8px auto 0;max-width:440px;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
   -webkit-mask-image:linear-gradient(transparent,#000 24%,#000 76%,transparent);
   mask-image:linear-gradient(transparent,#000 24%,#000 76%,transparent)
 }
 .dealerWheel::after{
   content:"";position:absolute;inset:50% 8% auto;height:48px;transform:translateY(-50%);
   border-top:1px solid color-mix(in srgb,var(--gold) 55%,transparent);
-  border-bottom:1px solid color-mix(in srgb,var(--gold) 55%,transparent);
-  border-radius:13px;pointer-events:none
+  border-bottom:1px solid color-mix(in srgb,var(--gold) 55%,transparent);border-radius:13px;pointer-events:none
 }
-.dealerName{
-  position:relative;z-index:1;height:48px;display:flex;align-items:center;justify-content:center;
-  width:100%;font:700 17px var(--display);transition:all .35s ease
-}
-.dealerName.current{
-  color:var(--gold);font-size:24px;text-shadow:0 0 22px color-mix(in srgb,var(--gold) 30%,transparent)
-}
+.dealerName{position:relative;z-index:1;height:48px;display:flex;align-items:center;justify-content:center;width:100%;font:700 17px var(--display);transition:all .35s ease}
+.dealerName.current{color:var(--gold);font-size:24px;text-shadow:0 0 22px color-mix(in srgb,var(--gold) 30%,transparent)}
 .dealerName.neighbor{filter:blur(1.2px);opacity:.36;transform:scale(.88)}
 .dealerIcon{display:inline-grid;place-items:center;width:30px;height:30px;margin-inline-start:8px;border-radius:50%;background:color-mix(in srgb,var(--gold) 17%,var(--surface));font-size:15px}
 .dealerHint{font-size:11px;color:var(--muted);margin-top:3px}
 .dealerWheel.spin .dealerName{animation:wheelUp .55s cubic-bezier(.2,.75,.25,1)}
 @keyframes wheelUp{from{transform:translateY(26px);opacity:.2;filter:blur(5px)}to{transform:translateY(0);opacity:1;filter:blur(0)}}
-
-/* احتفال نهاية اللعبة */
-.celebration{
-  position:fixed;inset:0;z-index:99;display:grid;place-items:center;
-  padding:20px;background:#050812cc;animation:fadeIn .25s ease-out
-}
-.celebrationBox{
-  width:min(420px,100%);max-height:90vh;overflow:auto;
-  padding:26px 20px;text-align:center;border:1px solid var(--gold);
-  border-radius:24px;background:var(--surface);box-shadow:0 20px 80px #0009;
-  animation:popIn .45s cubic-bezier(.2,.8,.2,1)
-}
-.celebrationBox .trophy{font-size:58px}
-.celebrationBox h2{color:var(--gold);font-size:28px;margin:8px 0}
+.celebration{position:fixed;inset:0;z-index:99;display:grid;place-items:center;padding:20px;background:#050812cc;animation:fadeIn .25s ease-out}
+.celebrationBox{width:min(420px,100%);max-height:90vh;overflow:auto;padding:26px 20px;text-align:center;border:1px solid var(--gold);border-radius:24px;background:var(--surface);box-shadow:0 20px 80px #0009;animation:popIn .45s cubic-bezier(.2,.8,.2,1)}
+.celebrationBox .trophy{font-size:58px}.celebrationBox h2{color:var(--gold);font-size:28px;margin:8px 0}
 .celebrationBox p{color:var(--muted);margin:0 0 14px}
 .winnerList{list-style:none;padding:0;margin:12px 0 20px;text-align:right}
 .winnerList li{padding:10px;margin:7px 0;border:1px solid var(--line);border-radius:12px;background:var(--surface2)}
@@ -198,13 +155,8 @@ footer{margin-top:2px}
 @keyframes fall{to{transform:translate3d(var(--drift),110vh,0) rotate(900deg);opacity:.85}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes popIn{from{transform:scale(.75);opacity:0}to{transform:scale(1);opacity:1}}
-@media(max-width:380px){
-  body{padding-inline:10px}.card{padding:12px}.fields.three{grid-template-columns:1fr}
-  .total{font-size:34px}.dealerWheel{height:140px}
-}
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
-}
+@media(max-width:380px){body{padding-inline:10px}.card{padding:12px}.fields.three{grid-template-columns:1fr}.total{font-size:34px}.dealerWheel{height:140px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
 
@@ -215,13 +167,27 @@ footer{margin-top:2px}
   <header class="top">
     <div class="brand">
       <div class="mark">♠</div>
-      <div>
-        <h1>سبع ورقات</h1>
-        <div class="sub" id="subtitle"></div>
-      </div>
+      <div><h1>سبع ورقات</h1><div class="sub" id="subtitle"></div></div>
     </div>
     <span class="pill" id="roundPill"></span>
   </header>
+
+  <section class="card roomCard">
+    <h2>🌐 العبوا سوا أونلاين</h2>
+    <div class="roomStatus" id="roomStatus">جاري الاتصال...</div>
+    <div id="roomCode" class="roomCode" hidden></div>
+    <div class="roomActions">
+      <button class="btn primary" id="createRoom">أنشئ جيم أونلاين</button>
+      <button class="btn" id="shareRoom" hidden>شارك رابط الجيم</button>
+    </div>
+    <div class="fields">
+      <div class="field">
+        <label for="roomInput">كود الجيم أو الرابط</label>
+        <input class="roomInput" id="roomInput" placeholder="الصق الكود أو الرابط هنا" autocomplete="off">
+      </div>
+      <button class="btn" id="joinRoom">انضم لجيم</button>
+    </div>
+  </section>
 
   <details class="card" id="settings">
     <summary>⚙️ الأسامي والإعدادات</summary>
@@ -231,9 +197,7 @@ footer{margin-top:2px}
       <div class="field"><label for="passValue">نقط الباص</label><input id="passValue" type="number" min="0" inputmode="numeric"></div>
       <div class="field"><label for="cardValue">نقط الورقة</label><input id="cardValue" type="number" min="0" inputmode="numeric"></div>
     </div>
-    <div class="fields">
-      <div class="field"><label for="themeColor">لون التصميم</label><input id="themeColor" type="color" value="#e2bd70"></div>
-    </div>
+    <div class="fields"><div class="field"><label for="themeColor">لون التصميم</label><input id="themeColor" type="color" value="#e2bd70"></div></div>
   </details>
 
   <section class="card dealerCard" aria-label="دور توزيع الورق">
@@ -254,20 +218,24 @@ footer{margin-top:2px}
       <button class="btn danger" id="reset">فورة جديدة</button>
     </div>
   </section>
-
   <footer dir="ltr">Powered by Samy Aziz</footer>
 </main>
 
 <script>
 (function(){
-  const KEY='saba-awraq-pro-v2';
+  const SUPABASE_URL='https://rsuhhkoicefqlrhkpphw.supabase.co';
+  const SUPABASE_KEY='sb_publishable_U0e1DvXuAULRMyJ-r1Ezvg_wc4iVOTT';
+  const KEY='saba-awraq-pro-v2',ROOM_KEY='saba-awraq-room-v1';
+
   const fresh=()=>({
     names:['اللاعب 1','اللاعب 2','اللاعب 3','اللاعب 4'],
     target:551,passValue:10,cardValue:1,themeColor:'#e2bd70',
     rounds:[],dealerIndex:0,cur:{p:[0,0,0,0],c:[0,0,0,0]}
   });
 
-  let S=fresh();
+  let S=fresh(),sb=null,roomId=localStorage.getItem(ROOM_KEY)||'';
+  let realtimeChannel=null,saveTimer=null,applyingRemote=false,cloudReady=false;
+
   try{
     const saved=JSON.parse(localStorage.getItem(KEY));
     if(saved&&Array.isArray(saved.names)&&saved.names.length===4){
@@ -284,7 +252,27 @@ footer{margin-top:2px}
   const name=i=>(S.names[i]||'').trim()||`لاعب ${i+1}`;
   const points=(passes,cards)=>passes*S.passValue+cards*S.cardValue;
 
-  function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+  function status(text,type=''){
+    const el=$('#roomStatus');el.textContent=text;el.className='roomStatus '+type;
+  }
+
+  function localSave(){
+    try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}
+  }
+
+  function save(){
+    localSave();
+    if(!roomId||!cloudReady||applyingRemote)return;
+    clearTimeout(saveTimer);
+    saveTimer=setTimeout(async()=>{
+      const {error}=await sb.from('games').update({
+        state:S,updated_at:new Date().toISOString()
+      }).eq('room_id',roomId);
+      if(error)status('تعذّر مزامنة التغيير: '+error.message,'error');
+      else status('الجيم متزامن أونلاين ✅','ok');
+    },350);
+  }
+
   function totals(){
     return ids.map(i=>S.rounds.reduce((sum,round)=>sum+points(round.p[i],round.c[i]),0));
   }
@@ -298,8 +286,7 @@ footer{margin-top:2px}
       oscillator.frequency.setValueAtTime(action==='inc'?1175:520,context.currentTime+.09);
       gain.gain.setValueAtTime(.4,context.currentTime);
       gain.gain.exponentialRampToValueAtTime(.001,context.currentTime+.35);
-      oscillator.connect(gain);gain.connect(context.destination);
-      oscillator.start();oscillator.stop(context.currentTime+.35);
+      oscillator.connect(gain);gain.connect(context.destination);oscillator.start();oscillator.stop(context.currentTime+.35);
       setTimeout(()=>context.close(),500);
     }catch(e){}
     if('speechSynthesis'in window){
@@ -319,8 +306,7 @@ footer{margin-top:2px}
         oscillator.type='triangle';oscillator.frequency.setValueAtTime(frequency,start);
         gain.gain.setValueAtTime(.001,start);gain.gain.exponentialRampToValueAtTime(.25,start+.03);
         gain.gain.exponentialRampToValueAtTime(.001,start+.42);
-        oscillator.connect(gain);gain.connect(context.destination);
-        oscillator.start(start);oscillator.stop(start+.45);
+        oscillator.connect(gain);gain.connect(context.destination);oscillator.start(start);oscillator.stop(start+.45);
       });
       setTimeout(()=>context.close(),1200);
     }catch(e){}
@@ -328,41 +314,33 @@ footer{margin-top:2px}
 
   function celebrateWinner(ranking){
     playWinSound();
-    const titles=['كينج','صب كينج','يا عيني على صب كوز','يا عيني عليك يا كوز '];
+    const titles=['كينج','صب كينج','يا عيني على الكوز','صب كوز كبير'];
     const places=['الأول','التاني','التالت','الرابع'];
-    const announcement=ranking.map((player,index)=>`${places[index]} ${player.name} ${titles[index]}`).join('. ');
+    const announcement=ranking.map((p,i)=>`${places[i]} ${p.name} ${titles[i]}`).join('. ');
     if('speechSynthesis'in window){
       window.speechSynthesis.cancel();
       const speech=new SpeechSynthesisUtterance(`ترتيب اللعبة. ${announcement}`);
-      speech.lang='ar-EG';speech.rate=.88;speech.pitch=1.08;
-      window.speechSynthesis.speak(speech);
+      speech.lang='ar-EG';speech.rate=.88;speech.pitch=1.08;window.speechSynthesis.speak(speech);
     }
     for(let i=0;i<90;i++){
-      const piece=document.createElement('i');
-      piece.className='confetti';piece.style.left=Math.random()*100+'vw';
+      const piece=document.createElement('i');piece.className='confetti';
+      piece.style.left=Math.random()*100+'vw';
       piece.style.backgroundColor=['#e2bd70','#55d6a2','#ff7185','#74b9ff','#c084fc'][i%5];
       piece.style.setProperty('--drift',(Math.random()*240-120)+'px');
       piece.style.animationDelay=(Math.random()*.8)+'s';
       document.body.appendChild(piece);setTimeout(()=>piece.remove(),4200);
     }
-    const list=ranking.map((player,index)=>`
-      <li><b>${places[index]} — ${esc(titles[index])}</b><br>${esc(player.name)} · ${player.score} نقطة</li>
-    `).join('');
-    const overlay=document.createElement('div');
-    overlay.className='celebration';
+    const list=ranking.map((p,i)=>`<li><b>${places[i]} — ${esc(titles[i])}</b><br>${esc(p.name)} · ${p.score} نقطة</li>`).join('');
+    const overlay=document.createElement('div');overlay.className='celebration';
     overlay.innerHTML=`<div class="celebrationBox" role="dialog" aria-modal="true">
       <div class="trophy">🏆</div><h2>ترتيب اللعبة!</h2><p>مبروك يا أبطال 🎉</p>
-      <ol class="winnerList">${list}</ol><button class="btn primary" type="button">احتفلنا 🎉</button>
-    </div>`;
-    overlay.addEventListener('click',()=>overlay.remove());
-    document.body.appendChild(overlay);
+      <ol class="winnerList">${list}</ol><button class="btn primary" type="button">احتفلنا 🎉</button></div>`;
+    overlay.addEventListener('click',()=>overlay.remove());document.body.appendChild(overlay);
   }
 
   function renderSettings(){
-    $('#names').innerHTML=ids.map(i=>`
-      <div class="field"><label for="name${i}">اسم اللاعب ${i+1}</label>
-      <input id="name${i}" data-name="${i}" maxlength="20" value="${esc(S.names[i])}"></div>
-    `).join('');
+    $('#names').innerHTML=ids.map(i=>`<div class="field"><label for="name${i}">اسم اللاعب ${i+1}</label>
+      <input id="name${i}" data-name="${i}" maxlength="20" value="${esc(S.names[i])}"></div>`).join('');
     $('#target').value=S.target;$('#passValue').value=S.passValue;$('#cardValue').value=S.cardValue;
     $('#themeColor').value=S.themeColor||'#e2bd70';
     document.documentElement.style.setProperty('--gold',S.themeColor||'#e2bd70');
@@ -373,23 +351,22 @@ footer{margin-top:2px}
     $('#roundPill').textContent=`الجيم ${S.rounds.length+1}`;
   }
 
+  function renderRoom(){
+    const code=$('#roomCode'),share=$('#shareRoom');
+    if(roomId){code.hidden=false;code.textContent='كود الجيم: '+roomId;share.hidden=false}
+    else{code.hidden=true;share.hidden=true}
+  }
+
   function renderDealer(animate=false){
-    const current=S.dealerIndex;
-    const previous=(current+3)%4,next=(current+1)%4;
-    const wheel=$('#dealerWheel');
-    wheel.innerHTML=`
-      <div class="dealerName neighbor">${esc(name(previous))}</div>
+    const current=S.dealerIndex,previous=(current+3)%4,next=(current+1)%4,wheel=$('#dealerWheel');
+    wheel.innerHTML=`<div class="dealerName neighbor">${esc(name(previous))}</div>
       <div class="dealerName current"><span class="dealerIcon">♠</span>${esc(name(current))}</div>
       <div class="dealerName neighbor">${esc(name(next))}</div>`;
-    if(animate){
-      wheel.classList.remove('spin');void wheel.offsetWidth;wheel.classList.add('spin');
-      setTimeout(()=>wheel.classList.remove('spin'),600);
-    }
+    if(animate){wheel.classList.remove('spin');void wheel.offsetWidth;wheel.classList.add('spin');setTimeout(()=>wheel.classList.remove('spin'),600)}
   }
 
   function renderStandings(){
-    const scores=totals(),lowest=Math.min(...scores),banner=$('#banner');
-    const lost=ids.filter(i=>scores[i]>=S.target);
+    const scores=totals(),lowest=Math.min(...scores),banner=$('#banner'),lost=ids.filter(i=>scores[i]>=S.target);
     if(lost.length){
       const winners=ids.filter(i=>scores[i]===lowest);
       banner.className='banner lostBanner';
@@ -398,15 +375,13 @@ footer{margin-top:2px}
     }else banner.hidden=true;
 
     $('#standings').innerHTML=ids.map(i=>{
-      const score=scores[i],isLost=score>=S.target;
-      const percent=Math.min(100,Math.round(score/S.target*100));
+      const score=scores[i],isLost=score>=S.target,percent=Math.min(100,Math.round(score/S.target*100));
       const rank=1+scores.filter(value=>value<score).length;
       const tag=isLost?'خسران':(score===lowest&&S.rounds.length?'الأقل نقاط':'');
       return `<article class="card tile ${isLost?'lost':''} ${rank===1&&S.rounds.length&&!isLost?'first':''}">
         <div class="th"><span class="rank">${S.rounds.length?rank:'–'}</span><span class="nm">${esc(name(i))}</span></div>
         <div class="total">${score}</div><div class="bar"><i style="width:${percent}%"></i></div>
-        <div class="meta"><span>${isLost?'عدّى الحد':`باقي ${S.target-score}`}</span><span>${tag}</span></div>
-      </article>`;
+        <div class="meta"><span>${isLost?'عدّى الحد':`باقي ${S.target-score}`}</span><span>${tag}</span></div></article>`;
     }).join('');
   }
 
@@ -420,13 +395,10 @@ footer{margin-top:2px}
   }
 
   function renderRound(){
-    let html=`<div><h2>الجيم رقم ${S.rounds.length+1}</h2>
-      <span class="sub">كل ضغطة + أو − في خانة الباص تطلع صوت وتنطق اسم اللاعب.</span></div>`;
+    let html=`<div><h2>الجيم رقم ${S.rounds.length+1}</h2><span class="sub">كل ضغطة + أو − في خانة الباص تطلع صوت وتنطق اسم اللاعب.</span></div>`;
     ids.forEach(i=>{
-      html+=`<div class="player"><div class="playerHead">
-        <span class="avatar">${esc([...name(i)][0]||'')}</span>
-        <span class="playerName">${esc(name(i))}</span>
-        <span class="roundScore" id="score${i}"></span></div>
+      html+=`<div class="player"><div class="playerHead"><span class="avatar">${esc([...name(i)][0]||'')}</span>
+        <span class="playerName">${esc(name(i))}</span><span class="roundScore" id="score${i}"></span></div>
         <div class="two">${counterField('p',i,'باصات')}${counterField('c',i,'الورق المتبقي')}</div></div>`;
     });
     html+=`<div class="actions"><button class="btn primary" id="record">✅ سجّل الجيم</button>
@@ -443,18 +415,94 @@ footer{margin-top:2px}
   }
 
   function renderHistory(){
-    const element=$('#history');
-    $('#undo').disabled=!S.rounds.length;$('#reset').disabled=!S.rounds.length;
+    const element=$('#history');$('#undo').disabled=!S.rounds.length;$('#reset').disabled=!S.rounds.length;
     if(!S.rounds.length){element.innerHTML='<p class="empty">لسه مفيش جيمات مسجلة.</p>';return}
     const scores=totals();
     element.innerHTML=`<table><thead><tr><th>جيم</th>${ids.map(i=>`<th>${esc(name(i))}</th>`).join('')}</tr></thead>
-      <tbody>${S.rounds.map((round,index)=>`<tr><th>${index+1}</th>${ids.map(i=>`
-        <td><b>${points(round.p[i],round.c[i])}</b><small>${round.p[i]} باص + ${round.c[i]} ورق</small></td>`).join('')}</tr>`).join('')}</tbody>
+      <tbody>${S.rounds.map((round,index)=>`<tr><th>${index+1}</th>${ids.map(i=>`<td><b>${points(round.p[i],round.c[i])}</b><small>${round.p[i]} باص + ${round.c[i]} ورق</small></td>`).join('')}</tr>`).join('')}</tbody>
       <tfoot><tr><th>المجموع</th>${ids.map(i=>`<td>${scores[i]}</td>`).join('')}</tr></tfoot></table>`;
   }
 
   function render(animateDealer=false){
-    renderHeader();renderDealer(animateDealer);renderStandings();renderRound();renderHistory();save();
+    renderHeader();renderRoom();renderDealer(animateDealer);renderStandings();renderRound();renderHistory();localSave();
+  }
+
+  function normalizeState(state){
+    const base=fresh();
+    if(!state||typeof state!=='object')return base;
+    const out={...base,...state};
+    if(!Array.isArray(out.names)||out.names.length!==4)out.names=base.names;
+    if(!Array.isArray(out.rounds))out.rounds=[];
+    if(!out.cur||!Array.isArray(out.cur.p)||!Array.isArray(out.cur.c))out.cur=base.cur;
+    out.dealerIndex=Number.isInteger(out.dealerIndex)?((out.dealerIndex%4)+4)%4:0;
+    return out;
+  }
+
+  function unsubscribe(){
+    if(realtimeChannel){sb.removeChannel(realtimeChannel);realtimeChannel=null}
+  }
+
+  function watchRoom(id){
+    unsubscribe();
+    realtimeChannel=sb.channel('game-'+id)
+      .on('postgres_changes',{event:'UPDATE',schema:'public',table:'games',filter:`room_id=eq.${id}`},payload=>{
+        const remote=payload.new&&payload.new.state;
+        if(!remote)return;
+        if(JSON.stringify(remote)===JSON.stringify(S))return;
+        const before=totals().some(score=>score>=S.target);
+        applyingRemote=true;S=normalizeState(remote);localSave();render();
+        const after=totals().some(score=>score>=S.target);
+        applyingRemote=false;
+        if(!before&&after){
+          const ranking=ids.map(i=>({name:name(i),score:totals()[i],id:i})).sort((a,b)=>a.score-b.score||a.id-b.id);
+          setTimeout(()=>celebrateWinner(ranking),250);
+        }
+        status('اتحدثت النتيجة من جهاز تاني ✅','ok');
+      })
+      .subscribe((state,error)=>{
+        if(state==='CHANNEL_ERROR'||state==='TIMED_OUT')status('مشكلة في الاتصال المباشر. حدّث الصفحة وجرب تاني.','error');
+      });
+  }
+
+  async function loadRoom(id,joinFirst){
+    if(!cloudReady)throw new Error('لسه الاتصال بالخدمة ما اكتملش');
+    const cleanId=String(id||'').trim();
+    if(!cleanId)throw new Error('اكتب كود الجيم أو الصق رابطه');
+    status('جاري فتح الجيم...');
+    if(joinFirst){
+      const {error}=await sb.rpc('join_game',{p_room_id:cleanId});
+      if(error)throw error;
+    }
+    const {data,error}=await sb.from('games').select('room_id,state').eq('room_id',cleanId).single();
+    if(error)throw error;
+    roomId=data.room_id;localStorage.setItem(ROOM_KEY,roomId);
+    applyingRemote=true;S=normalizeState(data.state);applyingRemote=false;
+    render();watchRoom(roomId);
+    status('اتصلتوا بنفس الجيم أونلاين ✅','ok');
+    const url=new URL(location.href);url.searchParams.set('room',roomId);
+    history.replaceState({},'',url);
+  }
+
+  async function startCloud(){
+    try{
+      if(!window.supabase)throw new Error('مكتبة الاتصال ما اتحمّلتش. تأكد من الإنترنت وحدّث الصفحة.');
+      sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+      let {data:{session},error}=await sb.auth.getSession();
+      if(error)throw error;
+      if(!session){
+        const result=await sb.auth.signInAnonymously();
+        if(result.error)throw result.error;
+      }
+      cloudReady=true;
+      const params=new URLSearchParams(location.search);
+      const fromUrl=params.get('room');
+      if(fromUrl)await loadRoom(fromUrl,true);
+      else if(roomId)await loadRoom(roomId,false);
+      else status('جاهز. أنشئ جيم أو الصق كود صاحبك.','ok');
+    }catch(error){
+      cloudReady=false;
+      status('تعذّر الاتصال: '+(error.message||'راجع إعدادات Supabase'),'error');
+    }
   }
 
   function confirmButton(button,callback){
@@ -467,8 +515,42 @@ footer{margin-top:2px}
     button.timer=setTimeout(()=>{button.textContent=button.dataset.label;delete button.dataset.confirm},2500);
   }
 
-  document.addEventListener('click',event=>{
+  document.addEventListener('click',async event=>{
     const button=event.target.closest('button');if(!button)return;
+
+    if(button.id==='createRoom'){
+      try{
+        if(!cloudReady)throw new Error('الاتصال لسه مش جاهز. حدّث الصفحة وجرب تاني.');
+        status('جاري إنشاء الجيم...');
+        const {data,error}=await sb.rpc('create_game',{p_state:S});
+        if(error)throw error;
+        await loadRoom(data,false);
+      }catch(error){status('ماقدرناش ننشئ الجيم: '+error.message,'error')}
+      return;
+    }
+
+    if(button.id==='joinRoom'){
+      try{
+        const value=$('#roomInput').value.trim();
+        const match=value.match(/[?&]room=([^&]+)/);
+        await loadRoom(decodeURIComponent(match?match[1]:value),true);
+      }catch(error){status('ماقدرناش ننضم للجيم: '+error.message,'error')}
+      return;
+    }
+
+    if(button.id==='shareRoom'){
+      if(!roomId)return;
+      const link=new URL(location.href);link.searchParams.set('room',roomId);
+      try{
+        await navigator.clipboard.writeText(link.href);
+        status('اتنسخ رابط الجيم—ابعته لصاحبك ✅','ok');
+      }catch(e){
+        $('#roomInput').value=link.href;$('#roomInput').select();
+        status('انسخ الرابط الظاهر في الخانة وابعته لصاحبك.','ok');
+      }
+      return;
+    }
+
     if(button.dataset.action){
       const kind=button.dataset.kind,index=Number(button.dataset.i),action=button.dataset.action;
       S.cur[kind][index]=Math.max(0,S.cur[kind][index]+(action==='inc'?1:-1));
@@ -476,6 +558,7 @@ footer{margin-top:2px}
       if(kind==='p')soundPass(name(index),action);
       updateRound();save();return;
     }
+
     if(button.id==='record'){
       const oldTotals=totals(),hadLoser=oldTotals.some(score=>score>=S.target);
       S.rounds.push({p:S.cur.p.slice(),c:S.cur.c.slice()});
@@ -484,22 +567,22 @@ footer{margin-top:2px}
         const ranking=ids.map(i=>({name:name(i),score:newTotals[i],id:i})).sort((a,b)=>a.score-b.score||a.id-b.id);
         setTimeout(()=>celebrateWinner(ranking),250);
       }
-      S.cur={p:[0,0,0,0],c:[0,0,0,0]};
-      S.dealerIndex=(S.dealerIndex+1)%4;
-      render(true);window.scrollTo({top:0,behavior:'smooth'});return;
+      S.cur={p:[0,0,0,0],c:[0,0,0,0]};S.dealerIndex=(S.dealerIndex+1)%4;
+      render(true);save();window.scrollTo({top:0,behavior:'smooth'});return;
     }
+
     if(button.id==='clear'){
       S.cur={p:[0,0,0,0],c:[0,0,0,0]};renderRound();save();return;
     }
     if(button.id==='undo'){
       confirmButton(button,()=>{
         if(S.rounds.length){S.rounds.pop();S.dealerIndex=(S.dealerIndex+3)%4}
-        render(true);
+        render(true);save();
       });return;
     }
     if(button.id==='reset'){
       confirmButton(button,()=>{
-        S.rounds=[];S.cur={p:[0,0,0,0],c:[0,0,0,0]};S.dealerIndex=0;render(true);
+        S.rounds=[];S.cur={p:[0,0,0,0],c:[0,0,0,0]};S.dealerIndex=0;render(true);save();
       });
     }
   });
@@ -515,8 +598,8 @@ footer{margin-top:2px}
     }
     if(input.dataset.name!==undefined){
       const index=Number(input.dataset.name);S.names[index]=input.value;
-      document.querySelectorAll('.playerName').forEach((element,i)=>element.textContent=name(i));
-      document.querySelectorAll('.avatar').forEach((element,i)=>element.textContent=[...name(i)][0]||'');
+      document.querySelectorAll('.playerName').forEach((el,i)=>el.textContent=name(i));
+      document.querySelectorAll('.avatar').forEach((el,i)=>el.textContent=[...name(i)][0]||'');
       renderDealer();renderStandings();renderHistory();save();return;
     }
     if(input.id==='target')S.target=number(input.value)||551;
@@ -531,6 +614,7 @@ footer{margin-top:2px}
   });
 
   renderSettings();render();
+  startCloud();
 })();
 </script>
 </body>
